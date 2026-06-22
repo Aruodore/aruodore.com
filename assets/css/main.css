@@ -1,0 +1,126 @@
+@import './fonts.css';
+@import 'tailwindcss';
+
+/* ──────────────────────────────────────────────────────────────
+ * LOCKED design tokens — Tailwind v4 CSS-first config.
+ *
+ * Every color used on the site MUST come from this list. The
+ * signal colors carry consistent semantic meaning across every
+ * piece and chart on the site. Do not deviate. Do not introduce
+ * new colors per piece. The consistency itself is part of the
+ * identity.
+ * ────────────────────────────────────────────────────────────── */
+@theme {
+  /* Reset the default Tailwind palette — we control every color. */
+  --color-*: initial;
+  --font-*: initial;
+
+  /* Surface */
+  --color-bg:    #FAFAF7;  /* off-white, warm — page background */
+  --color-ink:   #1A1A1A;  /* near-black — primary text */
+  --color-muted: #6B6B66;  /* muted — secondary text, captions */
+  --color-rule:  #D8D8D2;  /* faint — grid lines, rules, borders */
+
+  /* Signal colors — semantic across every chart/accent site-wide. */
+  --color-posterior: #1E3A5F;  /* deep navy — posterior / inferred */
+  --color-observed:  #C77B3C;  /* warm orange — observed data */
+  --color-prior:     #4A7A6A;  /* muted teal — prior distributions */
+
+  /* Keep transparent + currentColor available. */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Typography */
+  --font-serif: "Source Serif 4", "Source Serif Pro", "Iowan Old Style",
+                 Georgia, serif;
+  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans:  Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Layout widths */
+  --container-prose: 35rem;  /* narrow prose column */
+  --container-wide:  64rem;  /* wider column for piece interactives */
+}
+
+/* ──────────────────────────────────────────────────────────────
+ * Base layer — defaults that flow from the tokens above.
+ * ────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-serif);
+    font-feature-settings: 'kern', 'liga', 'onum';  /* old-style figures in prose */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Defense-in-depth against horizontal page scroll on mobile. The layout
+     should never push past the viewport — `clip` enforces that without
+     introducing a scroll context (unlike `hidden`, which would). */
+  html, body {
+    overflow-x: clip;
+  }
+
+  body {
+    background: var(--color-bg);
+  }
+
+  /* Tabular figures wherever we need decimal alignment. */
+  .tnum, table, .figures-tabular {
+    font-feature-settings: 'tnum', 'lnum';
+  }
+
+  /* Headings keep the serif but lose the italic-ish old-style figure. */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-feature-settings: 'kern', 'liga', 'lnum';
+    color: var(--color-ink);
+  }
+
+  /* Mono runs (code, data) use lining figures by default. */
+  code, pre, kbd, samp {
+    font-family: var(--font-mono);
+    font-feature-settings: 'kern', 'lnum';
+  }
+
+  /* Quiet rule color across hr and table borders. */
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+    margin: 2rem 0;
+  }
+
+  /* Links: subtle, no underline thrash; the underline is a thin rule. */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: var(--color-rule);
+    text-underline-offset: 0.18em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 120ms ease;
+  }
+  a:hover {
+    text-decoration-color: var(--color-ink);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-posterior) 18%, transparent);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+ * Components — small composable utilities. Keep this list short;
+ * if it grows past a handful, lift the pattern into a Vue component.
+ * ────────────────────────────────────────────────────────────── */
+@layer components {
+  .prose-column {
+    max-width: var(--container-prose);
+    margin-inline: auto;
+  }
+  .wide-column {
+    max-width: var(--container-wide);
+    margin-inline: auto;
+  }
+  .rule-top    { border-top: 1px solid var(--color-rule); }
+  .rule-bottom { border-bottom: 1px solid var(--color-rule); }
+}
