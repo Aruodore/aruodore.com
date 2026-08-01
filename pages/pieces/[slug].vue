@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { formatDay } from '~/utils/date'
-import BrownianMotion from '~/components/pieces/BrownianMotion.vue'
+import { defineAsyncComponent } from 'vue'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
+const siteUrl = 'https://aruodore.com'
 
 const { data: piece } = await useAsyncData(`piece-${slug.value}`, () =>
   queryCollection('pieces').path(`/pieces/${slug.value}`).first(),
@@ -13,9 +14,51 @@ if (!piece.value) {
   throw createError({ statusCode: 404, statusMessage: 'Piece not found' })
 }
 
+const jsonLd = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': ['Article', 'LearningResource'],
+  headline: piece.value!.citation_title,
+  description: piece.value!.summary,
+  url: piece.value!.canonical_url,
+  mainEntityOfPage: piece.value!.canonical_url,
+  author: { '@type': 'Person', name: piece.value!.author, url: `${siteUrl}/about` },
+  publisher: { '@type': 'Organization', name: 'Aruodore', url: `${siteUrl}/` },
+  datePublished: piece.value!.published,
+  dateModified: piece.value!.modified,
+  version: piece.value!.version,
+  image: piece.value!.preview_image ? `${siteUrl}${piece.value!.preview_image}` : undefined,
+  keywords: piece.value!.math_topics,
+  learningResourceType: 'Interactive simulation',
+  interactivityType: 'active',
+  isAccessibleForFree: true,
+  license: piece.value!.license_url,
+  codeRepository: piece.value!.source_url,
+  inLanguage: 'en',
+}))
+
 useHead(() => ({
-  title: `${piece.value!.title} · Aruodore`,
-  meta: [{ name: 'description', content: piece.value!.summary }],
+  title: `${piece.value!.citation_title} | Aruodore`,
+  link: [{ rel: 'canonical', href: piece.value!.canonical_url }],
+  meta: [
+    { name: 'description', content: piece.value!.summary },
+    { name: 'author', content: piece.value!.author },
+    { name: 'citation_title', content: piece.value!.citation_title },
+    { name: 'citation_author', content: 'Adomi, Lucas Aruodore' },
+    { name: 'citation_publication_date', content: piece.value!.published },
+    { name: 'citation_online_date', content: piece.value!.published },
+    { name: 'citation_fulltext_html_url', content: piece.value!.canonical_url },
+    ...(piece.value!.doi ? [{ name: 'citation_doi', content: piece.value!.doi }] : []),
+    { property: 'og:type', content: 'article' },
+    { property: 'og:site_name', content: 'Aruodore' },
+    { property: 'og:title', content: piece.value!.citation_title },
+    { property: 'og:description', content: piece.value!.summary },
+    { property: 'og:url', content: piece.value!.canonical_url },
+    ...(piece.value!.preview_image ? [{ property: 'og:image', content: `${siteUrl}${piece.value!.preview_image}` }] : []),
+    { property: 'article:published_time', content: piece.value!.published },
+    { property: 'article:modified_time', content: piece.value!.modified },
+    { name: 'twitter:card', content: 'summary_large_image' },
+  ],
+  script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(jsonLd.value) }],
 }))
 
 // @nuxt/content v3 only auto-resolves components in components/content/. Piece
@@ -23,7 +66,8 @@ useHead(() => ({
 // explicitly for the MDC renderer. Math is handled by remark-math +
 // rehype-katex in the markdown pipeline and needs no component registration.
 const mdcComponents = {
-  BrownianMotion,
+  BrownianMotion: defineAsyncComponent(() => import('~/components/pieces/BrownianMotion.vue')),
+  OrnsteinUhlenbeck: defineAsyncComponent(() => import('~/components/pieces/OrnsteinUhlenbeck.vue')),
 }
 </script>
 
@@ -33,10 +77,17 @@ const mdcComponents = {
       <h1 class="font-serif text-3xl tracking-tight">{{ piece.title }}</h1>
       <p class="mt-2 text-muted">{{ piece.summary }}</p>
       <p class="mt-3 font-sans text-xs uppercase tracking-widest text-muted tnum">
-        Published {{ formatDay(piece.published) }}
+        By {{ piece.author }} · Published {{ formatDay(piece.published) }} · v{{ piece.version }}
         <span v-if="piece.source_url"> · <a :href="piece.source_url" rel="noopener">source</a></span>
       </p>
     </header>
+
+    <section v-if="piece.learning_objectives?.length" class="prose-column mt-8 rule-top pt-5" aria-labelledby="objectives-heading">
+      <h2 id="objectives-heading" class="font-serif text-lg">What this piece is for</h2>
+      <ul class="mt-3 list-disc space-y-1 pl-5 text-sm">
+        <li v-for="objective in piece.learning_objectives" :key="objective">{{ objective }}</li>
+      </ul>
+    </section>
 
     <!-- The markdown body embeds the interactive component first, then the
          writeup follows. Prose elements are constrained to prose-column
@@ -58,6 +109,29 @@ const mdcComponents = {
         </li>
       </ol>
     </footer>
+
+    <section v-if="piece.downloads?.length" class="prose-column mt-12 rule-top pt-6" aria-labelledby="downloads-heading">
+      <h2 id="downloads-heading" class="font-serif text-xl">Downloads and source</h2>
+      <ul class="mt-4 space-y-3 text-sm">
+        <li v-for="download in piece.downloads" :key="download.url">
+          <a :href="download.url" download>{{ download.label }}</a>
+          <span class="text-muted"> · {{ download.format }}<template v-if="download.description"> · {{ download.description }}</template></span>
+        </li>
+        <li v-if="piece.source_file_url"><a :href="piece.source_file_url" rel="noopener">Read the simulation source</a></li>
+      </ul>
+    </section>
+
+    <PublicationDetails
+      class="prose-column mt-12"
+      :title="piece.citation_title"
+      :author="piece.author"
+      :published="piece.published"
+      :modified="piece.modified"
+      :version="piece.version"
+      :canonical-url="piece.canonical_url"
+      :doi="piece.doi"
+      :license-url="piece.license_url"
+    />
   </article>
 </template>
 
@@ -86,6 +160,13 @@ const mdcComponents = {
   margin-bottom: 0.5rem;
 }
 .piece-body :deep(p)  { margin-bottom: 1rem; }
+.piece-body :deep(p),
+.piece-body :deep(li) { line-height: 1.65; }
+.piece-body :deep(.katex-display) {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-block: 0.25rem;
+}
 .piece-body :deep(ul),
 .piece-body :deep(ol) { padding-left: 1.25rem; list-style: disc; }
 .piece-body :deep(ol) { list-style: decimal; }

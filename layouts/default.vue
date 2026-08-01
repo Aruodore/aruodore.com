@@ -16,7 +16,7 @@ function isActive(to: string): boolean {
 </script>
 
 <template>
-  <div class="min-h-screen bg-bg text-ink">
+  <div class="min-h-dvh grid grid-rows-[auto_1fr_auto] bg-bg text-ink">
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-bg focus:text-ink focus:border focus:border-rule focus:no-underline font-sans text-xs"
@@ -48,7 +48,7 @@ function isActive(to: string): boolean {
       <slot />
     </main>
 
-    <footer class="wide-column px-4 sm:px-6 py-10 mt-12 rule-top font-sans text-xs text-muted">
+    <footer class="wide-column w-full px-4 sm:px-6 py-10 mt-12 rule-top font-sans text-xs text-muted">
       <p>&copy; {{ new Date().getFullYear() }} Aruodore</p>
     </footer>
   </div>

@@ -4,17 +4,17 @@ import { formatMonth } from '~/utils/date'
 import { useReducedMotion } from '~/composables/useReducedMotion'
 
 const { data: pieces } = await useAsyncData('home-pieces', () =>
-  queryCollection('pieces').order('published', 'DESC').all(),
+  queryCollection('pieces').order('published', 'DESC').limit(8).all(),
 )
 
 useHead({ title: 'Aruodore' })
 
-const reduced = useReducedMotion()
+const { reduced, resolved } = useReducedMotion()
 
 function applyMotionPreference() {
   const videos = document.querySelectorAll<HTMLVideoElement>('[data-preview-video]')
   videos.forEach((v) => {
-    if (reduced.value) {
+    if (!resolved.value || reduced.value) {
       v.pause()
     } else {
       v.play().catch(() => { /* autoplay rejection is harmless here */ })
@@ -23,7 +23,7 @@ function applyMotionPreference() {
 }
 
 onMounted(applyMotionPreference)
-watch(reduced, applyMotionPreference)
+watch([reduced, resolved], applyMotionPreference)
 </script>
 
 <template>
@@ -43,13 +43,13 @@ watch(reduced, applyMotionPreference)
         <li
           v-for="(p, i) in pieces"
           :key="p.path"
-          class="grid grid-cols-[auto_1fr] gap-6 items-start"
+          class="grid grid-cols-[4rem_minmax(0,1fr)] sm:grid-cols-[8rem_minmax(0,1fr)] gap-4 sm:gap-6 items-start"
         >
           <NuxtLink
             :to="p.path"
             tabindex="-1"
             aria-hidden="true"
-            class="block w-32 aspect-square bg-rule/50 no-underline overflow-hidden"
+            class="block w-16 sm:w-32 sm:row-span-2 aspect-square bg-rule/50 no-underline overflow-hidden"
           >
             <video
               v-if="p.preview_video"
@@ -66,16 +66,17 @@ watch(reduced, applyMotionPreference)
               v-else-if="p.preview_image"
               :src="p.preview_image"
               alt=""
+              width="512"
+              height="512"
               loading="lazy"
               decoding="async"
               class="w-full h-full object-cover"
             />
           </NuxtLink>
           <div>
-            <p
-              class="font-sans text-xs tnum"
-              :class="i === 0 ? 'text-observed' : 'text-muted'"
-            >
+            <p class="flex items-center gap-2 font-sans text-xs tnum text-muted">
+              <span v-if="i === 0" class="newest-marker" aria-hidden="true" />
+              <span v-if="i === 0" class="sr-only">Newest: </span>
               {{ formatMonth(p.published) }}
             </p>
             <h3 class="mt-1 font-serif text-2xl">
@@ -83,8 +84,8 @@ watch(reduced, applyMotionPreference)
                 {{ p.title }}
               </NuxtLink>
             </h3>
-            <p class="mt-2 text-muted">{{ p.summary }}</p>
           </div>
+          <p class="col-span-2 mt-1 text-muted sm:col-start-2 sm:col-span-1">{{ p.summary }}</p>
         </li>
       </ul>
 

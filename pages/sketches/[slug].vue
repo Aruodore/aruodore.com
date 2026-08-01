@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDay } from '~/utils/date'
+import { defineAsyncComponent } from 'vue'
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
@@ -13,6 +14,11 @@ if (!sketch.value) {
 }
 
 useHead(() => ({ title: `${sketch.value!.title} · Aruodore` }))
+
+const sketchComponents = {
+  'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/sketches/OrnsteinUhlenbeckSketch.vue')),
+}
+const liveSketch = computed(() => sketchComponents[slug.value as keyof typeof sketchComponents])
 </script>
 
 <template>
@@ -25,24 +31,17 @@ useHead(() => ({ title: `${sketch.value!.title} · Aruodore` }))
       </p>
     </header>
 
-    <div class="mt-8 aspect-square bg-rule/40 rule-bottom overflow-hidden">
-      <video
-        v-if="sketch.preview_clip"
-        :src="sketch.preview_clip"
-        autoplay
-        muted
-        loop
-        playsinline
-        class="w-full h-full object-cover"
-      />
-    </div>
-
-    <div class="mt-6">
-      <Math display :expr="sketch.equation_latex" />
-    </div>
+    <component :is="liveSketch" v-if="liveSketch" class="mt-8" />
 
     <div class="mt-8 piece-body">
       <ContentRenderer :value="sketch" />
     </div>
   </article>
 </template>
+
+<style scoped>
+.piece-body :deep(p),
+.piece-body :deep(.math-display) {
+  margin-bottom: 1rem;
+}
+</style>

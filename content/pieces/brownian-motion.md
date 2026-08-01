@@ -2,7 +2,22 @@
 title: Brownian Motion
 slug: brownian-motion
 published: 2026-05-23
-summary: One hundred thousand independent random walkers in three dimensions, drifting outward according to the same equation that describes pollen grains in water, stock prices, and the forward pass of a diffusion model.
+modified: 2026-08-01
+version: 1.0.0
+author: Lucas Aruodore Adomi
+canonical_url: https://aruodore.com/pieces/brownian-motion
+license_url: https://creativecommons.org/licenses/by/4.0/
+citation_title: "Brownian Motion Simulation: Paths, Variance, and the Heat Equation"
+summary: One hundred thousand independent Brownian particles spreading from a common origin, with one path traced through the evolving three-dimensional distribution.
+learning_objectives:
+  - Distinguish a single realised path from an ensemble distribution at a fixed time.
+  - Relate Brownian variance and root-mean-square displacement to elapsed time.
+  - Connect the transition density of Brownian motion to the heat equation.
+limitations:
+  - The display samples a mathematical Brownian-motion model, not the molecular dynamics of a physical fluid.
+  - A finite particle cloud only approximates the theoretical Gaussian distribution.
+  - The continuous path between displayed timesteps is not rendered.
+  - Floating-point arithmetic and a pseudorandom number generator replace ideal real-valued randomness.
 math_topics:
   - Brownian motion
   - Wiener process
@@ -30,9 +45,30 @@ references:
     title: Brownian Motion and Stochastic Calculus
     year: 1991
     venue: Springer
+  - kind: paper
+    author: Black, F. and Scholes, M.
+    title: The Pricing of Options and Corporate Liabilities
+    year: 1973
+    venue: Journal of Political Economy
+    url: https://doi.org/10.1086/260062
+  - kind: paper
+    author: Song, Y. et al.
+    title: Score-Based Generative Modeling through Stochastic Differential Equations
+    year: 2021
+    venue: International Conference on Learning Representations
+    url: https://arxiv.org/abs/2011.13456
 preview_image: /pieces/brownian-motion/preview.png
-preview_video: /pieces/brownian-motion/preview.mp4
-source_url: https://github.com/lucasaruodore/aruodore
+source_url: https://github.com/Aruodore/aruodore.com
+source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/aruodore/pieces/brownian-motion/simulation.ts
+downloads:
+  - label: Brownian motion figure
+    url: /pieces/brownian-motion/preview.png
+    format: PNG
+    description: Static fallback and slide-ready figure
+  - label: Artifact notes
+    url: /pieces/brownian-motion/README.md
+    format: Markdown
+    description: Figure and implementation notes
 ---
 
 ::BrownianMotion
@@ -40,7 +76,11 @@ source_url: https://github.com/lucasaruodore/aruodore
 
 ## What is this?
 
-One hundred thousand particles, all started at the origin, each taking an independent Gaussian step in three dimensions at every timestep. The walkers do not interact. What you see is not the trajectory of one process but the visible signature of many — the empirical density of a continuous-time stochastic process, sampled and rendered as a cloud of points. At any fixed moment after the reset, the cloud's shape is an isotropic three-dimensional Gaussian centered at the origin, with a width that grows over time.
+The navy cloud shows the current positions of one hundred thousand independent Brownian particles in three dimensions. Every particle starts at the origin and receives an independent Gaussian displacement at each simulation step. The particles do not interact.
+
+The orange line records one particle's path. It is irregular even at short times because Brownian motion has no smooth velocity. The faint sphere marks the theoretical root-mean-square distance from the origin at the current time. It is a reference surface, not a boundary, so many particles lie on either side of it.
+
+The cloud and the line show two different views of the same process. The line is one realised path through time. The cloud is an empirical approximation to the distribution of $X_t$ at one time across many independent realisations.
 
 ## What is the math?
 
@@ -50,7 +90,7 @@ $$
 dX_t = \sigma \, dW_t,
 $$
 
-where $W_t$ is a standard 3D Wiener process — three mutually independent one-dimensional Brownian motions, one per coordinate — and $\sigma > 0$ is the diffusion coefficient. A 3D Brownian motion is, by construction, three independent 1D Brownian motions stacked into a vector.
+where $W_t$ is a standard three-dimensional Wiener process and $\sigma>0$ is the noise amplitude. The three coordinates of $W_t$ are independent one-dimensional Brownian motions.
 
 The transition density from the origin at time $t$ is the isotropic 3D Gaussian
 
@@ -58,7 +98,14 @@ $$
 p(\mathbf{x}, t) = \frac{1}{(2\pi\sigma^{2} t)^{3/2}} \exp\!\left(-\frac{\lVert \mathbf{x} \rVert^{2}}{2\sigma^{2} t}\right),
 $$
 
-a Gaussian centered at the origin with variance $\sigma^{2} t$ in every coordinate. The standard deviation grows as $\sigma\sqrt{t}$, so the cloud's typical radius scales with the *square root* of elapsed time — not linearly. That square root is the qualitative signature of diffusion as opposed to ballistic transport.
+a Gaussian centred at the origin with variance $\sigma^2t$ in each coordinate. The standard deviation along any coordinate is therefore $\sigma\sqrt{t}$. In three dimensions,
+
+$$
+\sqrt{\mathbb E\!\left[\lVert X_t\rVert^2\right]}
+= \sigma\sqrt{3t}.
+$$
+
+This is the radius of the reference sphere in the illustration. It grows in proportion to $\sqrt{t}$ rather than $t$.
 
 The same density $p(\mathbf{x}, t)$ satisfies the heat equation
 
@@ -66,12 +113,39 @@ $$
 \frac{\partial p}{\partial t} = \frac{\sigma^{2}}{2} \, \Delta p,
 $$
 
-where $\Delta$ is the 3D Laplacian. Brownian motion is the stochastic counterpart to heat diffusion; the density of independent walkers obeys the same partial differential equation as heat in a uniform medium (Mörters and Peres 2010; Karatzas and Shreve 1991). The link is older than the formal theory of stochastic processes — Einstein derived it for suspended particles in 1905 (Einstein 1905), several years before Wiener constructed Brownian motion as a rigorous object.
+where $\Delta$ is the three-dimensional Laplacian. In this convention the diffusion coefficient is $D=\sigma^2/2$; $\sigma$ itself is the noise amplitude. The equation is also the heat equation in a uniform medium. This correspondence connects the random motion of individual paths to the deterministic evolution of their probability density (Mörters and Peres 2010; Karatzas and Shreve 1991).
+
+Einstein's 1905 analysis related the mean-squared displacement of suspended particles to a diffusion coefficient, providing a statistical account of the observed motion (Einstein 1905). The simulation uses the mathematical Brownian-motion model rather than a molecular model of the surrounding fluid.
 
 ## Why is it interesting?
 
-Brownian motion sits at the base of a long list of models. Geometric Brownian motion — the exponential of a drifted Brownian motion — is the foundation of the Black–Scholes option pricing model and most of mathematical finance. Langevin dynamics adds a deterministic drift to the same SDE and is the workhorse of molecular simulation and gradient-based sampling. Particle filters in robotics and target tracking propagate clouds of hypotheses under noise that is, at root, the same Gaussian increment used here. Score-based generative models — the diffusion models behind much of modern image synthesis — define a forward process that is precisely this SDE and learn to reverse it. The equation $dX_t = \sigma\, dW_t$ is the same equation in every case. What differs across these models is the drift term, the dimension, and what $X_t$ is taken to represent — a price, a particle, a hypothesis, a noisy image.
+Brownian motion gives a direct link between a stochastic process and a partial differential equation. Simulating many independent paths produces the same Gaussian density that the heat equation predicts. The agreement is visible here: the empirical cloud expands at the rate determined by $\sigma^2t$.
+
+The process also appears as one component of larger models. In geometric Brownian motion, Brownian noise acts on the logarithm of a positive quantity; this is the price model used in the Black and Scholes derivation (Black and Scholes 1973). In score-based generative modelling, a forward SDE gradually perturbs a data distribution and a learned reverse-time process removes that perturbation. The constant-noise, zero-drift process shown here is one simple member of that broader SDE framework, not a description of every diffusion model (Song et al. 2021).
+
+These extensions matter because Brownian motion is mathematically tractable. Its increments are independent and Gaussian, its transition density is explicit, and that density solves a familiar PDE. Those properties make it a useful baseline even when an application requires drift, state-dependent noise, constraints, or non-Gaussian jumps.
 
 ## How was it built?
 
-Three.js renders one hundred thousand particles as a single `THREE.Points` mesh backed by a `Float32Array` of length $3N$. Each frame, all $3N$ coordinates are incremented in JavaScript by $\sigma\sqrt{\Delta t}$ times an independent standard normal, then the whole buffer is uploaded to the GPU via a dynamic `BufferAttribute`. The standard normals come from the Box–Muller transform; both samples produced by each call are used (the second is cached for the following call) so no random budget is wasted. A small radial-gradient sprite is generated at mount time so density emerges from alpha accumulation against the light background rather than from additive glow, which would brighten incorrectly toward white. The user orbits with `OrbitControls`; panning is disabled to keep the origin at the centre of attention. The simulation is currently CPU-bound — comfortable at 100k particles on a recent laptop — and a later piece will revisit the same problem with a WebGPU compute backend at much higher counts.
+For a timestep $\Delta t$, the simulation applies
+
+$$
+X_{n+1}=X_n+\sigma\sqrt{\Delta t}\,Z_n,
+\qquad Z_n\sim\mathcal N(0,I_3).
+$$
+
+The factor $\sqrt{\Delta t}$ gives each coordinate an increment variance of $\sigma^2\Delta t$. After $n$ steps, the elapsed time is $t=n\Delta t$ and the accumulated variance is $\sigma^2t$.
+
+Three.js renders all particle positions as one `THREE.Points` object backed by a `Float32Array` of length $3N$. The coordinates are updated on the CPU and uploaded through a dynamic `BufferAttribute`. Standard normal samples come from the Box–Muller transform, with the second value from each generated pair cached for the next call.
+
+The orange line stores successive positions of the first particle in a fixed-size buffer. The sphere is a wireframe mesh scaled each frame to $\sigma\sqrt{3t}$. Both are derived from the same particle state and elapsed simulation time as the navy cloud. Resetting clears the positions, the recorded path, the sphere, and the clock.
+
+## Questions to try
+
+1. At a fixed time, is the orange path itself distributed like the navy cloud, or does the cloud describe the endpoints of many paths?
+2. If the noise amplitude $\sigma$ were doubled, by what factor would the coordinate variance and RMS radius change?
+3. Why do some particles lie outside the RMS shell even though the shell is computed from the theoretical distribution?
+
+## Assumptions and limitations
+
+This is an ensemble visualization of an ideal mathematical process. The particles are independent, start at the origin, have constant noise amplitude, and move in unbounded three-dimensional space. The finite cloud has sampling variation and the renderer shows positions only at discrete times. It does not model collisions, inertia, hydrodynamic interactions, boundaries, measurement error, or the molecular structure of a fluid.

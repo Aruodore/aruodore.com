@@ -8,12 +8,12 @@ const { data: sketches } = await useAsyncData('sketches-index', () =>
 
 useHead({ title: 'Sketches · Aruodore' })
 
-const reduced = useReducedMotion()
+const { reduced, resolved } = useReducedMotion()
 
 function applyMotionPreference() {
   const videos = document.querySelectorAll<HTMLVideoElement>('[data-sketch-video]')
   videos.forEach((v) => {
-    if (reduced.value) {
+    if (!resolved.value || reduced.value) {
       v.pause()
     } else {
       v.play().catch(() => { /* autoplay rejection is harmless here */ })
@@ -22,7 +22,11 @@ function applyMotionPreference() {
 }
 
 onMounted(applyMotionPreference)
-watch(reduced, applyMotionPreference)
+watch([reduced, resolved], applyMotionPreference)
+
+function posterFor(clip: string) {
+  return clip.replace(/\.mp4$/i, '.png')
+}
 </script>
 
 <template>
@@ -30,8 +34,8 @@ watch(reduced, applyMotionPreference)
     <header class="prose-column">
       <h1 class="font-serif text-3xl tracking-tight">Sketches</h1>
       <p class="mt-3 text-muted">
-        Small looping statistical visualizations. Hover to animate, click for
-        the equation and a short paragraph.
+        Small statistical visualizations. Open one to see the equation and run
+        the process.
       </p>
     </header>
 
@@ -48,13 +52,15 @@ watch(reduced, applyMotionPreference)
             <video
               v-if="s.preview_clip"
               :src="s.preview_clip"
+              :poster="posterFor(s.preview_clip)"
               muted
               loop
               playsinline
               preload="metadata"
               data-sketch-video
-              class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
+              class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
             />
+            <img v-else :src="`/sketches/${s.slug}.png`" alt="" width="512" height="512" loading="lazy" class="h-full w-full object-cover">
           </div>
           <h2 class="mt-2 font-serif text-sm font-normal">{{ s.title }}</h2>
           <p class="font-sans text-xs text-muted">

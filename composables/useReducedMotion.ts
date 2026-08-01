@@ -6,6 +6,7 @@ import { ref, onMounted, onBeforeUnmount } from 'vue'
  */
 export function useReducedMotion() {
   const reduced = ref(false)
+  const resolved = ref(false)
   let mq: MediaQueryList | null = null
   const onChange = () => {
     if (mq) reduced.value = mq.matches
@@ -14,6 +15,7 @@ export function useReducedMotion() {
   onMounted(() => {
     mq = window.matchMedia('(prefers-reduced-motion: reduce)')
     reduced.value = mq.matches
+    resolved.value = true
     mq.addEventListener('change', onChange)
   })
 
@@ -22,5 +24,5 @@ export function useReducedMotion() {
     mq = null
   })
 
-  return reduced
+  return { reduced, resolved }
 }

@@ -31,10 +31,10 @@
   --color-current: currentColor;
 
   /* Typography */
-  --font-serif: "Source Serif 4", "Source Serif Pro", "Iowan Old Style",
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", "Source Serif Pro", "Iowan Old Style",
                  Georgia, serif;
-  --font-mono:  "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans:  Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:  "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans:  "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
   /* Layout widths */
   --container-prose: 35rem;  /* narrow prose column */
@@ -63,6 +63,8 @@
 
   body {
     background: var(--color-bg);
+    min-width: 20rem;
+    line-height: 1.65;
   }
 
   /* Tabular figures wherever we need decimal alignment. */
@@ -103,6 +105,30 @@
     text-decoration-color: var(--color-ink);
   }
 
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-posterior);
+    outline-offset: 3px;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    min-height: 2.75rem;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  p, li, figcaption {
+    text-wrap: pretty;
+  }
+
   ::selection {
     background: color-mix(in oklab, var(--color-posterior) 18%, transparent);
   }
@@ -123,4 +149,29 @@
   }
   .rule-top    { border-top: 1px solid var(--color-rule); }
   .rule-bottom { border-bottom: 1px solid var(--color-rule); }
+
+  .math-display {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-block: 0.2rem;
+  }
+
+  .newest-marker {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 999px;
+    background: var(--color-observed);
+    flex: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

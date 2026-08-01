@@ -87,6 +87,14 @@ const MAX_DISTANCE = 60
 // imperceptible gains at this point density.
 const MAX_PIXEL_RATIO = 2
 
+// One representative walker is retained as a short orange trajectory. The
+// cloud shows the ensemble distribution; the line shows what one path through
+// that distribution actually looks like. At 60 fps this stores about 30 s.
+const MAX_TRAIL_POINTS = 1_800
+
+const RULE_HEX = 0xD8D8D2
+const OBSERVED_HEX = 0xC77B3C
+
 export interface BrownianMotionOptions {
   /** Number of independent walkers. Default 100_000. */
   N?: number
@@ -100,6 +108,8 @@ export interface BrownianMotionOptions {
 
 export interface BrownianMotionHandle {
   destroy: () => void
+  pause: () => void
+  resume: () => void
   reset: () => void
   getTime: () => number
 }
@@ -151,6 +161,52 @@ export function mountBrownianMotion(
   const points = new THREE.Points(geometry, material)
   scene.add(points)
 
+  // The faint sphere marks the ensemble's theoretical RMS distance from the
+  // origin, sqrt(E[||X_t||^2]) = sigma sqrt(3t). It expands with sqrt(t), so
+  // the reference geometry makes the defining scaling law visible.
+  const shellGeometry = new THREE.SphereGeometry(1, 24, 16)
+  const shellMaterial = new THREE.MeshBasicMaterial({
+    color: RULE_HEX,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.52,
+  })
+  const shell = new THREE.Mesh(shellGeometry, shellMaterial)
+  shell.visible = false
+  scene.add(shell)
+
+  // The first particle becomes an observed path through the inferred density.
+  // The line uses a fixed buffer to avoid allocating during the frame loop.
+  const trailPositions = new Float32Array(MAX_TRAIL_POINTS * 3)
+  const trailGeometry = new THREE.BufferGeometry()
+  const trailAttribute = new THREE.BufferAttribute(trailPositions, 3)
+  trailAttribute.setUsage(THREE.DynamicDrawUsage)
+  trailGeometry.setAttribute('position', trailAttribute)
+  trailGeometry.setDrawRange(0, 1)
+  const trailMaterial = new THREE.LineBasicMaterial({
+    color: OBSERVED_HEX,
+    transparent: true,
+    opacity: 0.88,
+  })
+  const trail = new THREE.Line(trailGeometry, trailMaterial)
+  trail.renderOrder = 2
+  scene.add(trail)
+
+  const observedPosition = new Float32Array(3)
+  const observedGeometry = new THREE.BufferGeometry()
+  const observedAttribute = new THREE.BufferAttribute(observedPosition, 3)
+  observedAttribute.setUsage(THREE.DynamicDrawUsage)
+  observedGeometry.setAttribute('position', observedAttribute)
+  const observedMaterial = new THREE.PointsMaterial({
+    color: OBSERVED_HEX,
+    size: POINT_SIZE * 2.6,
+    sizeAttenuation: true,
+    depthWrite: false,
+  })
+  const observedPoint = new THREE.Points(observedGeometry, observedMaterial)
+  observedPoint.renderOrder = 3
+  scene.add(observedPoint)
+
   // Controls ------------------------------------------------------------
   const controls = new OrbitControls(camera, renderer.domElement)
   controls.enableDamping = true
@@ -174,6 +230,7 @@ export function mountBrownianMotion(
   const step = sigma * Math.sqrt(dt)
 
   let elapsed = 0
+  let trailCount = 1
   let rafId = 0
   let running = false
 
@@ -185,6 +242,32 @@ export function mountBrownianMotion(
     }
     attribute.needsUpdate = true
     elapsed += dt
+
+    const observedX = positions[0] ?? 0
+    const observedY = positions[1] ?? 0
+    const observedZ = positions[2] ?? 0
+    observedPosition[0] = observedX
+    observedPosition[1] = observedY
+    observedPosition[2] = observedZ
+    observedAttribute.needsUpdate = true
+
+    const trailIndex = trailCount < MAX_TRAIL_POINTS
+      ? trailCount
+      : MAX_TRAIL_POINTS - 1
+    if (trailCount >= MAX_TRAIL_POINTS) {
+      trailPositions.copyWithin(0, 3)
+    }
+    const offset = trailIndex * 3
+    trailPositions[offset] = observedX
+    trailPositions[offset + 1] = observedY
+    trailPositions[offset + 2] = observedZ
+    trailCount = Math.min(MAX_TRAIL_POINTS, trailCount + 1)
+    trailGeometry.setDrawRange(0, trailCount)
+    trailAttribute.needsUpdate = true
+
+    const rmsRadius = sigma * Math.sqrt(3 * elapsed)
+    shell.scale.setScalar(rmsRadius)
+    shell.visible = rmsRadius > 0.05
   }
 
   function render() {
@@ -229,14 +312,37 @@ export function mountBrownianMotion(
       geometry.dispose()
       material.dispose()
       spriteTexture.dispose()
+      shellGeometry.dispose()
+      shellMaterial.dispose()
+      trailGeometry.dispose()
+      trailMaterial.dispose()
+      observedGeometry.dispose()
+      observedMaterial.dispose()
       renderer.dispose()
       if (renderer.domElement.parentNode === container) {
         container.removeChild(renderer.domElement)
       }
     },
+    pause() {
+      if (!running) return
+      running = false
+      cancelAnimationFrame(rafId)
+    },
+    resume() {
+      if (running) return
+      running = true
+      rafId = requestAnimationFrame(frame)
+    },
     reset() {
       positions.fill(0)
       attribute.needsUpdate = true
+      trailPositions.fill(0)
+      trailCount = 1
+      trailGeometry.setDrawRange(0, trailCount)
+      trailAttribute.needsUpdate = true
+      observedPosition.fill(0)
+      observedAttribute.needsUpdate = true
+      shell.visible = false
       elapsed = 0
       onTimeUpdate?.(elapsed)
     },

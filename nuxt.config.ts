@@ -39,6 +39,16 @@ export default defineNuxtConfig({
         { name: 'color-scheme', content: 'light' },
       ],
       link: [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
+      script: [{
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Aruodore',
+          url: 'https://aruodore.com/',
+          author: { '@type': 'Person', name: 'Lucas Aruodore Adomi', url: 'https://aruodore.com/about' },
+        }),
+      }],
     },
   },
 
@@ -63,7 +73,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/'],
+      routes: ['/', '/sitemap.xml', '/feed.xml'],
     },
   },
 })
