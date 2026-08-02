@@ -25,7 +25,7 @@ function isActive(to: string): boolean {
     </a>
 
     <header
-      class="wide-column px-4 sm:px-6 pt-8 sm:pt-10 pb-2 sm:pb-4 rule-bottom flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+      class="wide-column w-full px-4 sm:px-6 pt-8 sm:pt-10 pb-2 sm:pb-4 rule-bottom flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
     >
       <NuxtLink to="/" class="font-serif text-xl tracking-tight no-underline">
         Aruodore
@@ -44,7 +44,7 @@ function isActive(to: string): boolean {
       </nav>
     </header>
 
-    <main id="main" class="wide-column px-4 sm:px-6 py-10 sm:py-12">
+    <main id="main" class="wide-column w-full px-4 sm:px-6 py-10 sm:py-12">
       <slot />
     </main>
 
