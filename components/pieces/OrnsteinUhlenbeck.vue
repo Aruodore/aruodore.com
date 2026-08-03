@@ -84,9 +84,9 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <figure ref="figure" aria-describedby="ou-caption">
-    <div class="rule-top rule-bottom grid lg:grid-cols-[1fr_15rem]">
-      <div class="relative min-h-[22rem] bg-bg lg:min-h-[36rem]">
+  <figure ref="figure" aria-describedby="ou-caption" class="w-full min-w-0 max-w-full">
+    <div class="rule-top rule-bottom grid min-w-0 lg:grid-cols-[minmax(0,1fr)_15rem]">
+      <div class="relative min-w-0 min-h-[22rem] bg-bg lg:min-h-[36rem]">
         <img
           v-if="!started || failed"
           src="/pieces/ornstein-uhlenbeck/preview.png"
@@ -121,7 +121,7 @@ onBeforeUnmount(() => {
         </template>
       </div>
 
-      <div class="flex flex-col border-rule p-4 lg:border-l">
+      <div class="flex min-w-0 flex-col border-rule p-4 lg:border-l">
         <div class="space-y-6">
           <label class="block"><span class="flex items-baseline justify-between gap-3"><span class="font-serif italic">Mean reversion, θ</span><output class="font-mono text-xs tnum">{{ theta.toFixed(2) }}</output></span><input v-model.number="theta" type="range" min="0.1" max="2" step="0.05" class="ou-range mt-2 w-full"></label>
           <label class="block"><span class="flex items-baseline justify-between gap-3"><span class="font-serif italic">Noise, σ</span><output class="font-mono text-xs tnum">{{ sigma.toFixed(2) }}</output></span><input v-model.number="sigma" type="range" min="0.2" max="2" step="0.05" class="ou-range mt-2 w-full"></label>

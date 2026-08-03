@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <figure ref="figure" aria-describedby="brownian-caption">
+  <figure ref="figure" aria-describedby="brownian-caption" class="w-full min-w-0 max-w-full">
     <div class="relative w-full bg-bg rule-top rule-bottom" style="aspect-ratio: 900 / 600;">
       <img
         v-if="!started || failed"

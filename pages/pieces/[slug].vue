@@ -72,7 +72,7 @@ const mdcComponents = {
 </script>
 
 <template>
-  <article v-if="piece" class="wide-column">
+  <article v-if="piece" class="wide-column w-full min-w-0">
     <header class="prose-column">
       <h1 class="font-serif text-3xl tracking-tight">{{ piece.title }}</h1>
       <p class="mt-2 text-muted">{{ piece.summary }}</p>
@@ -163,9 +163,20 @@ const mdcComponents = {
 .piece-body :deep(p),
 .piece-body :deep(li) { line-height: 1.65; }
 .piece-body :deep(.katex-display) {
+  display: block;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   padding-block: 0.25rem;
+}
+.piece-body :deep(pre) {
+  max-width: 100%;
+  overflow-x: auto;
+}
+.piece-body :deep(a),
+footer a {
+  overflow-wrap: anywhere;
 }
 .piece-body :deep(ul),
 .piece-body :deep(ol) { padding-left: 1.25rem; list-style: disc; }
@@ -177,3 +188,12 @@ const mdcComponents = {
   border-radius: 2px;
 }
 </style>
+.piece-body {
+  min-width: 0;
+  max-width: 100%;
+}
+.piece-body :deep(> div),
+.piece-body :deep(figure) {
+  min-width: 0;
+  max-width: 100%;
+}

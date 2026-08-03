@@ -31,7 +31,7 @@ async function copyCitation() {
 </script>
 
 <template>
-  <section class="publication-details rule-top pt-6" aria-labelledby="citation-heading">
+  <section class="publication-details min-w-0 max-w-full rule-top pt-6" aria-labelledby="citation-heading">
     <h2 id="citation-heading" class="font-serif text-xl">How to cite this piece</h2>
     <p class="mt-3 text-sm">{{ citation }}</p>
     <div class="mt-3 flex flex-wrap gap-4 font-sans text-xs">
@@ -40,9 +40,9 @@ async function copyCitation() {
       </button>
       <a :href="`data:text/plain;charset=utf-8,${encodeURIComponent(bibtex)}`" :download="`${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}.bib`">Download BibTeX</a>
     </div>
-    <details class="mt-4 text-sm">
+    <details class="mt-4 min-w-0 max-w-full text-sm">
       <summary class="cursor-pointer font-sans text-xs">BibTeX</summary>
-      <pre class="mt-3 overflow-x-auto bg-rule/30 p-3 text-xs"><code>{{ bibtex }}</code></pre>
+      <pre class="mt-3 max-w-full overflow-x-auto bg-rule/30 p-3 text-xs"><code>{{ bibtex }}</code></pre>
     </details>
     <dl class="mt-5 grid gap-2 text-sm sm:grid-cols-[8rem_1fr]">
       <dt class="text-muted">Version</dt><dd>{{ version }}</dd>
