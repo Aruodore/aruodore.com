@@ -28,15 +28,21 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { createNormalSampler } from '../brownian-motion/box-muller'
 import { createParticleSpriteTexture } from '../brownian-motion/sprite'
+import {
+  clampOrnsteinUhlenbeckParameters,
+  ornsteinUhlenbeckStationaryVariance,
+  ornsteinUhlenbeckTransition,
+  type OrnsteinUhlenbeckParameters,
+} from './model'
 
 const N_PARTICLES = 75_000
 const DT = 0.016
 const DEFAULT_THETA = 0.5
 const DEFAULT_MU = 0
 const DEFAULT_SIGMA = 1
-const BG_HEX = 0xFAFAF7
-const RULE_HEX = 0xD8D8D2
-const OBSERVED_HEX = 0xC77B3C
+const BG_HEX = 0xfafaf7
+const RULE_HEX = 0xd8d8d2
+const OBSERVED_HEX = 0xc77b3c
 const CAMERA_FOV = 50
 const CAMERA_NEAR = 0.1
 const CAMERA_FAR = 100
@@ -44,12 +50,6 @@ const CAMERA_POS = { x: 4, y: 3, z: 8 } as const
 const POINT_SIZE = 0.065
 const MAX_PIXEL_RATIO = 2
 const STATS_INTERVAL = 6
-
-export interface OrnsteinUhlenbeckParameters {
-  theta: number
-  mu: number
-  sigma: number
-}
 
 export interface OrnsteinUhlenbeckStats {
   elapsed: number
@@ -146,7 +146,7 @@ export function mountOrnsteinUhlenbeck(
   let running = true
 
   function stationaryVariance() {
-    return (parameters.sigma * parameters.sigma) / (2 * parameters.theta)
+    return ornsteinUhlenbeckStationaryVariance(parameters.theta, parameters.sigma)
   }
 
   function updateReferenceGeometry() {
@@ -168,15 +168,12 @@ export function mountOrnsteinUhlenbeck(
   }
 
   function advance() {
-    const decay = Math.exp(-parameters.theta * dt)
-    const innovation = parameters.sigma
-      * Math.sqrt((1 - decay * decay) / (2 * parameters.theta))
     const mu = parameters.mu
     const measure = frameCount % STATS_INTERVAL === 0
     let squaredDeviation = 0
 
     for (let i = 0; i < positions.length; i++) {
-      const next = mu + ((positions[i] ?? 0) - mu) * decay + innovation * nextNormal()
+      const next = ornsteinUhlenbeckTransition(positions[i] ?? 0, parameters, dt, nextNormal())
       positions[i] = next
       if (measure) squaredDeviation += (next - mu) * (next - mu)
     }
@@ -248,9 +245,7 @@ export function mountOrnsteinUhlenbeck(
       emitStats()
     },
     setParameters(next) {
-      if (next.theta !== undefined) parameters.theta = Math.max(0.05, next.theta)
-      if (next.mu !== undefined) parameters.mu = next.mu
-      if (next.sigma !== undefined) parameters.sigma = Math.max(0.05, next.sigma)
+      Object.assign(parameters, clampOrnsteinUhlenbeckParameters(parameters, next))
       updateReferenceGeometry()
       emitStats()
     },

@@ -1,12 +1,16 @@
 <script setup lang="ts">
 const route = useRoute()
 
+useHead(() => ({
+  link: [{ rel: 'canonical', href: `https://aruodore.com${route.path === '/' ? '/' : route.path}` }],
+}))
+
 const nav = [
-  { to: '/',         label: 'Index' },
-  { to: '/pieces',   label: 'Pieces' },
+  { to: '/', label: 'Index' },
+  { to: '/pieces', label: 'Pieces' },
   { to: '/sketches', label: 'Sketches' },
-  { to: '/notes',    label: 'Notes' },
-  { to: '/about',    label: 'About' },
+  { to: '/notes', label: 'Notes' },
+  { to: '/about', label: 'About' },
 ]
 
 function isActive(to: string): boolean {
@@ -27,20 +31,20 @@ function isActive(to: string): boolean {
     <header
       class="wide-column w-full min-w-0 px-4 sm:px-6 pt-8 sm:pt-10 pb-2 sm:pb-4 rule-bottom flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
     >
-      <NuxtLink to="/" class="font-serif text-xl tracking-tight no-underline">
-        Aruodore
-      </NuxtLink>
-      <nav
-        class="font-sans text-sm text-muted flex flex-wrap -mx-2 sm:mx-0 sm:gap-4"
-      >
-        <NuxtLink
+      <nuxt-link to="/" class="font-serif text-xl tracking-tight no-underline"> Aruodore </nuxt-link>
+      <nav class="font-sans text-sm text-muted flex flex-wrap -mx-2 sm:mx-0 sm:gap-4">
+        <nuxt-link
           v-for="item in nav"
           :key="item.to"
           :to="item.to"
-          :class="['nav-link inline-flex items-center min-h-11 px-2 no-underline hover:text-ink', { 'is-active': isActive(item.to) }]"
+          :class="[
+            'nav-link inline-flex items-center min-h-11 px-2 no-underline hover:text-ink',
+            { 'is-active': isActive(item.to) },
+          ]"
         >
           {{ item.label }}
-        </NuxtLink>
+        </nuxt-link>
+        <theme-switch />
       </nav>
     </header>
 
@@ -58,7 +62,7 @@ function isActive(to: string): boolean {
 .nav-link.is-active {
   color: var(--color-ink);
   text-decoration: underline;
-  text-decoration-color: var(--color-posterior);
+  text-decoration-color: var(--color-ink);
   text-decoration-thickness: 1px;
   text-underline-offset: 6px;
 }

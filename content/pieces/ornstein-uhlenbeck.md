@@ -7,7 +7,7 @@ version: 1.0.0
 author: Lucas Aruodore Adomi
 canonical_url: https://aruodore.com/pieces/ornstein-uhlenbeck
 license_url: https://creativecommons.org/licenses/by/4.0/
-citation_title: "Ornstein–Uhlenbeck Process: Mean Reversion and the Stationary Distribution"
+citation_title: 'Ornstein–Uhlenbeck Process: Mean Reversion and the Stationary Distribution'
 summary: Seventy-five thousand random paths pulled toward equilibrium, showing how mean reversion turns unbounded Brownian diffusion into a stationary Gaussian cloud.
 learning_objectives:
   - Explain how linear drift produces mean reversion.
@@ -55,7 +55,7 @@ downloads:
     description: Static fallback and slide-ready figure
 ---
 
-::OrnsteinUhlenbeck
+::ornstein-uhlenbeck
 ::
 
 ## What is this?

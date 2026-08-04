@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import { useReducedMotion } from '~/composables/useReducedMotion'
+import { useReducedMotion } from '~/composables/use-reduced-motion'
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const started = ref(false)
@@ -9,7 +9,7 @@ const { reduced, resolved } = useReducedMotion()
 let frameId = 0
 let resizeObserver: ResizeObserver | null = null
 let x = 0
-let history: number[] = []
+const history: number[] = []
 let spare: number | null = null
 
 const theta = 0.8
@@ -59,12 +59,12 @@ function draw() {
   ctx.stroke()
 
   if (history.length > 1) {
-    ctx.strokeStyle = '#C77B3C'
+    ctx.strokeStyle = '#1A1A1A'
     ctx.lineWidth = 2
     ctx.lineJoin = 'round'
     ctx.beginPath()
     history.forEach((value, index) => {
-      const px = index / Math.max(1, history.length - 1) * width
+      const px = (index / Math.max(1, history.length - 1)) * width
       const py = center - value * scale
       if (index === 0) ctx.moveTo(px, py)
       else ctx.lineTo(px, py)
@@ -98,12 +98,16 @@ onMounted(() => {
   draw()
 })
 
-watch(resolved, (ready) => {
-  if (ready && !reduced.value) start(false)
-}, { immediate: true })
+watch(
+  resolved,
+  (ready) => {
+    if (ready && !reduced.value) void start(false)
+  },
+  { immediate: true },
+)
 watch(reduced, (shouldReduce) => {
   if (shouldReduce && !manuallyStarted.value) cancelAnimationFrame(frameId)
-  else if (started.value) start()
+  else if (started.value) void start()
 })
 
 onBeforeUnmount(() => {
@@ -115,9 +119,27 @@ onBeforeUnmount(() => {
 <template>
   <figure aria-describedby="ou-sketch-caption">
     <div class="relative aspect-square rule-top rule-bottom bg-bg">
-      <img v-if="!started" src="/sketches/ornstein-uhlenbeck.png" width="512" height="512" alt="An orange Ornstein–Uhlenbeck path fluctuating around its equilibrium inside a navy stationary band." class="absolute inset-0 h-full w-full object-cover">
-      <canvas v-show="started" ref="canvas" role="img" aria-label="An orange Ornstein–Uhlenbeck path fluctuates around a horizontal equilibrium line inside its stationary range." class="h-full w-full" />
-      <button v-if="resolved && reduced && !started" type="button" class="absolute inset-x-0 bottom-4 mx-auto w-fit min-h-11 border border-posterior bg-bg px-4 py-2 font-sans text-xs uppercase tracking-widest text-ink" @click="start(true)">
+      <img
+        v-if="!started"
+        src="/sketches/ornstein-uhlenbeck.png"
+        width="512"
+        height="512"
+        alt="An orange Ornstein–Uhlenbeck path fluctuating around its equilibrium inside a navy stationary band."
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+      <canvas
+        v-show="started"
+        ref="canvas"
+        role="img"
+        aria-label="An orange Ornstein–Uhlenbeck path fluctuates around a horizontal equilibrium line inside its stationary range."
+        class="h-full w-full"
+      />
+      <button
+        v-if="resolved && reduced && !started"
+        type="button"
+        class="absolute inset-x-0 bottom-4 mx-auto w-fit min-h-11 border border-posterior bg-bg px-4 py-2 font-sans text-xs uppercase tracking-widest text-ink"
+        @click="start(true)"
+      >
         Run sketch
       </button>
     </div>

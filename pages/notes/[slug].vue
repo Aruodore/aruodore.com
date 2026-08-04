@@ -26,7 +26,7 @@ useHead(() => ({ title: `${note.value!.title} · Aruodore` }))
     </header>
 
     <div class="mt-8 piece-body">
-      <ContentRenderer :value="note" />
+      <content-renderer :value="note" />
     </div>
   </article>
 </template>
@@ -37,10 +37,18 @@ useHead(() => ({ title: `${note.value!.title} · Aruodore` }))
   margin-top: 2rem;
   margin-bottom: 0.5rem;
 }
-.piece-body :deep(p)  { margin-bottom: 1rem; line-height: 1.65; }
+.piece-body :deep(p) {
+  margin-bottom: 1rem;
+  line-height: 1.65;
+}
 .piece-body :deep(ul),
-.piece-body :deep(ol) { margin: 1rem 0 1rem 1.25rem; list-style: disc; }
-.piece-body :deep(ol) { list-style: decimal; }
+.piece-body :deep(ol) {
+  margin: 1rem 0 1rem 1.25rem;
+  list-style: disc;
+}
+.piece-body :deep(ol) {
+  list-style: decimal;
+}
 .piece-body :deep(blockquote) {
   position: relative;
   padding-left: 2.25rem;

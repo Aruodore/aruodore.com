@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, watch } from 'vue'
 import { formatMonth } from '~/utils/date'
-import { useReducedMotion } from '~/composables/useReducedMotion'
+import { useReducedMotion } from '~/composables/use-reduced-motion'
 
 const { data: pieces } = await useAsyncData('home-pieces', () =>
   queryCollection('pieces').order('published', 'DESC').limit(8).all(),
@@ -17,7 +17,9 @@ function applyMotionPreference() {
     if (!resolved.value || reduced.value) {
       v.pause()
     } else {
-      v.play().catch(() => { /* autoplay rejection is harmless here */ })
+      v.play().catch(() => {
+        /* autoplay rejection is harmless here */
+      })
     }
   })
 }
@@ -28,24 +30,23 @@ watch([reduced, resolved], applyMotionPreference)
 
 <template>
   <article>
-    <section class="prose-column">
+    <section class="prose-column pt-4 sm:pt-8 lg:pt-16">
       <h1 class="font-serif text-4xl tracking-tight">Aruodore</h1>
       <p class="mt-3 text-muted text-lg">
-        A mathematician and statistician building systems that reason under
-        uncertainty.
+        A mathematician and statistician building systems that reason under uncertainty.
       </p>
     </section>
 
-    <section class="mt-20">
-      <h2 class="font-serif text-xl italic text-muted mb-8">Pieces</h2>
+    <section class="mt-24 sm:mt-32 lg:mt-40">
+      <h2 class="font-serif text-xl italic text-muted mb-10 sm:mb-12">Pieces</h2>
 
-      <ul v-if="pieces && pieces.length" class="space-y-12">
+      <ul v-if="pieces && pieces.length" class="space-y-16 sm:space-y-20">
         <li
-          v-for="(p, i) in pieces"
+          v-for="p in pieces"
           :key="p.path"
           class="grid grid-cols-[4rem_minmax(0,1fr)] sm:grid-cols-[8rem_minmax(0,1fr)] gap-4 sm:gap-6 items-start"
         >
-          <NuxtLink
+          <nuxt-link
             :to="p.path"
             tabindex="-1"
             aria-hidden="true"
@@ -72,17 +73,15 @@ watch([reduced, resolved], applyMotionPreference)
               decoding="async"
               class="w-full h-full object-cover"
             />
-          </NuxtLink>
+          </nuxt-link>
           <div>
-            <p class="flex items-center gap-2 font-sans text-xs tnum text-muted">
-              <span v-if="i === 0" class="newest-marker" aria-hidden="true" />
-              <span v-if="i === 0" class="sr-only">Newest: </span>
+            <p class="font-sans text-xs tnum text-muted">
               {{ formatMonth(p.published) }}
             </p>
             <h3 class="mt-1 font-serif text-2xl">
-              <NuxtLink :to="p.path" class="no-underline">
+              <nuxt-link :to="p.path" class="no-underline">
                 {{ p.title }}
-              </NuxtLink>
+              </nuxt-link>
             </h3>
           </div>
           <p class="col-span-2 mt-1 text-muted sm:col-start-2 sm:col-span-1">{{ p.summary }}</p>

@@ -3,7 +3,7 @@ import * as THREE from 'three'
 /*
  * Soft circular particle sprite, generated in code so no external
  * texture asset is needed. A 32×32 canvas is filled with a radial
- * gradient: fully opaque `posterior` navy at the centre, fading to
+ * gradient: fully opaque ink at the centre, fading to
  * fully transparent at the edge with a Gaussian-like falloff.
  *
  * Alpha is composited against the light page background, so the
@@ -13,7 +13,7 @@ import * as THREE from 'three'
  */
 
 const SIZE = 32
-const POSTERIOR = '30, 58, 95'  // sRGB components of #1E3A5F
+const PARTICLE_INK = '26, 26, 26' // sRGB components of the interface ink
 
 export function createParticleSpriteTexture(): THREE.CanvasTexture {
   const canvas = document.createElement('canvas')
@@ -32,11 +32,11 @@ export function createParticleSpriteTexture(): THREE.CanvasTexture {
   // Gaussian-ish falloff approximated with a few stops. The squared
   // offset positions push opacity toward the centre, which is what
   // a true Gaussian profile e^{-r^2 / 2 sigma^2} does.
-  gradient.addColorStop(0.0, `rgba(${POSTERIOR}, 1.0)`)
-  gradient.addColorStop(0.25, `rgba(${POSTERIOR}, 0.72)`)
-  gradient.addColorStop(0.5, `rgba(${POSTERIOR}, 0.32)`)
-  gradient.addColorStop(0.75, `rgba(${POSTERIOR}, 0.08)`)
-  gradient.addColorStop(1.0, `rgba(${POSTERIOR}, 0.0)`)
+  gradient.addColorStop(0.0, `rgba(${PARTICLE_INK}, 1.0)`)
+  gradient.addColorStop(0.25, `rgba(${PARTICLE_INK}, 0.72)`)
+  gradient.addColorStop(0.5, `rgba(${PARTICLE_INK}, 0.32)`)
+  gradient.addColorStop(0.75, `rgba(${PARTICLE_INK}, 0.08)`)
+  gradient.addColorStop(1.0, `rgba(${PARTICLE_INK}, 0.0)`)
 
   ctx.fillStyle = gradient
   ctx.fillRect(0, 0, SIZE, SIZE)

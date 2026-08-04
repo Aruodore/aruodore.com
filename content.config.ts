@@ -8,7 +8,7 @@ const referenceSchema = z.object({
   author: z.string(),
   title: z.string(),
   year: z.number().int(),
-  venue: z.string().optional(),  // publisher (book) or journal name (paper)
+  venue: z.string().optional(), // publisher (book) or journal name (paper)
   url: z.string().url().optional(),
   doi: z.string().optional(),
   isbn: z.string().optional(),
@@ -33,8 +33,8 @@ export default defineContentConfig({
       schema: z.object({
         title: z.string(),
         slug: z.string(),
-        published: z.string(),                                  // ISO date
-        modified: z.string(),                                   // ISO date
+        published: z.string(), // ISO date
+        modified: z.string(), // ISO date
         version: z.string(),
         author: z.string(),
         canonical_url: z.string().url(),

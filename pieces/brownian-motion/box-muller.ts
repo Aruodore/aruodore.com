@@ -17,7 +17,7 @@
 
 const TWO_PI = 2 * Math.PI
 
-export function createNormalSampler(): () => number {
+export function createNormalSampler(random: () => number = Math.random): () => number {
   let cached: number | null = null
 
   return function nextNormal(): number {
@@ -28,8 +28,8 @@ export function createNormalSampler(): () => number {
     }
     // U1 is shifted off zero so that log(U1) is finite; the bias is
     // 2^-52 and has no measurable effect on the sample distribution.
-    const u1 = Math.random() + Number.EPSILON
-    const u2 = Math.random()
+    const u1 = random() + Number.EPSILON
+    const u2 = random()
     const r = Math.sqrt(-2 * Math.log(u1))
     const theta = TWO_PI * u2
     cached = r * Math.sin(theta)

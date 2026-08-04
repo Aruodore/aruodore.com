@@ -6,19 +6,14 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxt/content'],
 
-  components: [
-    { path: '~/components', pathPrefix: false },
-  ],
+  components: [{ path: '~/components', pathPrefix: false }],
 
   ssr: true,
   experimental: {
     payloadExtraction: true,
   },
 
-  css: [
-    '~/assets/css/main.css',
-    'katex/dist/katex.min.css',
-  ],
+  css: ['~/assets/css/main.css', 'katex/dist/katex.min.css'],
 
   vite: {
     plugins: [tailwindcss()],
@@ -36,19 +31,27 @@ export default defineNuxtConfig({
           content:
             'Interactive, browser-native work at the intersection of probability, statistical inference, computer vision, and machine learning.',
         },
-        { name: 'color-scheme', content: 'light' },
+        { name: 'color-scheme', content: 'light dark' },
+        { name: 'theme-color', content: '#fafaf7', media: '(prefers-color-scheme: light)' },
+        { name: 'theme-color', content: '#11110f', media: '(prefers-color-scheme: dark)' },
       ],
       link: [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
-      script: [{
-        type: 'application/ld+json',
-        innerHTML: JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'Aruodore',
-          url: 'https://aruodore.com/',
-          author: { '@type': 'Person', name: 'Lucas Aruodore Adomi', url: 'https://aruodore.com/about' },
-        }),
-      }],
+      script: [
+        {
+          innerHTML:
+            "(()=>{try{const t=localStorage.getItem('aruodore-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}})()",
+        },
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebSite',
+            name: 'Aruodore',
+            url: 'https://aruodore.com/',
+            author: { '@type': 'Person', name: 'Lucas Aruodore Adomi', url: 'https://aruodore.com/about' },
+          }),
+        },
+      ],
     },
   },
 
@@ -61,7 +64,7 @@ export default defineNuxtConfig({
         },
         rehypePlugins: {
           'rehype-katex': {
-            // Keep MathML output for screen readers (CLAUDE.md §10.5).
+            // Keep MathML output for screen readers (claude.md).
             output: 'htmlAndMathml',
             strict: 'ignore',
           },
@@ -74,6 +77,19 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: true,
       routes: ['/', '/sitemap.xml', '/feed.xml'],
+    },
+  },
+
+  routeRules: {
+    '/**': {
+      headers: {
+        'Content-Security-Policy':
+          "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'",
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+      },
     },
   },
 })

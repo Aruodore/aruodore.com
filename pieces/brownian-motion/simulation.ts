@@ -43,6 +43,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { createNormalSampler } from './box-muller'
+import { brownianStepScale } from './model'
 import { createParticleSpriteTexture } from './sprite'
 
 // Tuned for 60 fps with headroom on a recent laptop. Holds stable at
@@ -58,9 +59,9 @@ const N_PARTICLES = 100_000
 const SIGMA = 1
 const DT = 0.016
 
-// Site palette tokens (CLAUDE.md §4.1). Clear color is `bg`; the
+// Site palette tokens (claude.md). Clear color is `bg`; the
 // sprite carries the `posterior` accent via the shared helper.
-const BG_HEX = 0xFAFAF7
+const BG_HEX = 0xfafaf7
 
 // Camera default. Distance sqrt(4^2 + 3^2 + 8^2) ≈ 9.43; the cloud's
 // 1-sigma radius reaches that distance only past t ≈ 89 s (sqrt(89)),
@@ -92,8 +93,8 @@ const MAX_PIXEL_RATIO = 2
 // that distribution actually looks like. At 60 fps this stores about 30 s.
 const MAX_TRAIL_POINTS = 1_800
 
-const RULE_HEX = 0xD8D8D2
-const OBSERVED_HEX = 0xC77B3C
+const RULE_HEX = 0xd8d8d2
+const OBSERVED_HEX = 0xc77b3c
 
 export interface BrownianMotionOptions {
   /** Number of independent walkers. Default 100_000. */
@@ -114,10 +115,7 @@ export interface BrownianMotionHandle {
   getTime: () => number
 }
 
-export function mountBrownianMotion(
-  container: HTMLElement,
-  opts: BrownianMotionOptions = {},
-): BrownianMotionHandle {
+export function mountBrownianMotion(container: HTMLElement, opts: BrownianMotionOptions = {}): BrownianMotionHandle {
   const N = opts.N ?? N_PARTICLES
   const sigma = opts.sigma ?? SIGMA
   const dt = opts.dt ?? DT
@@ -227,7 +225,7 @@ export function mountBrownianMotion(
   // Precomputed Euler–Maruyama scale. See module preamble: the factor
   // is sigma * sqrt(dt), giving the correct N(0, sigma^2 dt) increment
   // per coordinate when multiplied by a standard normal.
-  const step = sigma * Math.sqrt(dt)
+  const step = brownianStepScale(sigma, dt)
 
   let elapsed = 0
   let trailCount = 1
@@ -251,9 +249,7 @@ export function mountBrownianMotion(
     observedPosition[2] = observedZ
     observedAttribute.needsUpdate = true
 
-    const trailIndex = trailCount < MAX_TRAIL_POINTS
-      ? trailCount
-      : MAX_TRAIL_POINTS - 1
+    const trailIndex = trailCount < MAX_TRAIL_POINTS ? trailCount : MAX_TRAIL_POINTS - 1
     if (trailCount >= MAX_TRAIL_POINTS) {
       trailPositions.copyWithin(0, 3)
     }

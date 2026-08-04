@@ -31,7 +31,7 @@ const TAN_HALF = Math.tan(FOV_Y / 2)
 const ASPECT = W / H
 const NEAR = 0.1
 
-// --- palette tokens (CLAUDE.md §4.1)
+// --- palette tokens (claude.md)
 const BG = [0xfa, 0xfa, 0xf7]
 const FG = [0x1e, 0x3a, 0x5f] // posterior
 const RULE = [0xd8, 0xd8, 0xd2]
@@ -44,12 +44,16 @@ const K = 9
 const HALF = (K - 1) / 2
 const KERN_SCALE = 0.18
 
-function sub(a, b) { return [a[0] - b[0], a[1] - b[1], a[2] - b[2]] }
-function dot(a, b) { return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] }
+function sub(a, b) {
+  return [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
+}
 function cross(a, b) {
   return [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]]
 }
-function norm(v) { const l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l] }
+function norm(v) {
+  const l = Math.hypot(v[0], v[1], v[2])
+  return [v[0] / l, v[1] / l, v[2] / l]
+}
 
 const FORWARD = norm(sub(TARGET, CAM))
 const RIGHT = norm(cross(FORWARD, [0, 1, 0]))
@@ -58,7 +62,11 @@ const UP = cross(RIGHT, FORWARD)
 // Box–Muller with cached second sample, mirroring box-muller.ts.
 let cached = null
 function nextNormal() {
-  if (cached !== null) { const z = cached; cached = null; return z }
+  if (cached !== null) {
+    const z = cached
+    cached = null
+    return z
+  }
   const u1 = Math.random() + Number.EPSILON
   const u2 = Math.random()
   const r = Math.sqrt(-2 * Math.log(u1))
@@ -108,10 +116,7 @@ function project(point) {
   const yCam = vx * UP[0] + vy * UP[1] + vz * UP[2]
   const xN = xCam / (zCam * TAN_HALF * ASPECT)
   const yN = yCam / (zCam * TAN_HALF)
-  return [
-    Math.round((xN + 1) * 0.5 * W),
-    Math.round((1 - yN) * 0.5 * H),
-  ]
+  return [Math.round((xN + 1) * 0.5 * W), Math.round((1 - yN) * 0.5 * H)]
 }
 
 function rasterise(positions, kernel) {

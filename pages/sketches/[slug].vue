@@ -16,7 +16,7 @@ if (!sketch.value) {
 useHead(() => ({ title: `${sketch.value!.title} · Aruodore` }))
 
 const sketchComponents = {
-  'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/sketches/OrnsteinUhlenbeckSketch.vue')),
+  'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/sketches/ornstein-uhlenbeck-sketch.vue')),
 }
 const liveSketch = computed(() => sketchComponents[slug.value as keyof typeof sketchComponents])
 </script>
@@ -34,7 +34,7 @@ const liveSketch = computed(() => sketchComponents[slug.value as keyof typeof sk
     <component :is="liveSketch" v-if="liveSketch" class="mt-8" />
 
     <div class="mt-8 piece-body">
-      <ContentRenderer :value="sketch" />
+      <content-renderer :value="sketch" />
     </div>
   </article>
 </template>

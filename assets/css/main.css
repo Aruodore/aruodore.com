@@ -16,29 +16,43 @@
   --font-*: initial;
 
   /* Surface */
-  --color-bg:    #FAFAF7;  /* off-white, warm — page background */
-  --color-ink:   #1A1A1A;  /* near-black — primary text */
-  --color-muted: #6B6B66;  /* muted — secondary text, captions */
-  --color-rule:  #D8D8D2;  /* faint — grid lines, rules, borders */
-
-  /* Signal colors — semantic across every chart/accent site-wide. */
-  --color-posterior: #1E3A5F;  /* deep navy — posterior / inferred */
-  --color-observed:  #C77B3C;  /* warm orange — observed data */
-  --color-prior:     #4A7A6A;  /* muted teal — prior distributions */
+  --color-bg: #fafaf7; /* off-white, warm — page background */
+  --color-ink: #1a1a1a; /* near-black — primary text */
+  --color-muted: #6b6b66; /* muted — secondary text, captions */
+  --color-rule: #d8d8d2; /* faint — grid lines, rules, borders */
 
   /* Keep transparent + currentColor available. */
   --color-transparent: transparent;
   --color-current: currentColor;
 
   /* Typography */
-  --font-serif: "Source Serif 4 Variable", "Source Serif 4", "Source Serif Pro", "Iowan Old Style",
-                 Georgia, serif;
-  --font-mono:  "JetBrains Mono Variable", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans:  "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 
   /* Layout widths */
-  --container-prose: 35rem;  /* narrow prose column */
-  --container-wide:  64rem;  /* wider column for piece interactives */
+  --container-prose: 35rem; /* narrow prose column */
+  --container-wide: 64rem; /* wider column for piece interactives */
+}
+
+:root {
+  color-scheme: light dark;
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #11110f;
+  --color-ink: #e8e6df;
+  --color-muted: #aaa8a0;
+  --color-rule: #383834;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: #11110f;
+    --color-ink: #e8e6df;
+    --color-muted: #aaa8a0;
+    --color-rule: #383834;
+  }
 }
 
 /* ──────────────────────────────────────────────────────────────
@@ -49,7 +63,7 @@
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-serif);
-    font-feature-settings: 'kern', 'liga', 'onum';  /* old-style figures in prose */
+    font-feature-settings: 'kern', 'liga', 'onum'; /* old-style figures in prose */
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -57,7 +71,8 @@
   /* Defense-in-depth against horizontal page scroll on mobile. The layout
      should never push past the viewport — `clip` enforces that without
      introducing a scroll context (unlike `hidden`, which would). */
-  html, body {
+  html,
+  body {
     overflow-x: clip;
   }
 
@@ -68,19 +83,29 @@
   }
 
   /* Tabular figures wherever we need decimal alignment. */
-  .tnum, table, .figures-tabular {
+  .tnum,
+  table,
+  .figures-tabular {
     font-feature-settings: 'tnum', 'lnum';
   }
 
   /* Headings keep the serif but lose the italic-ish old-style figure. */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-serif);
     font-feature-settings: 'kern', 'liga', 'lnum';
     color: var(--color-ink);
   }
 
   /* Mono runs (code, data) use lining figures by default. */
-  code, pre, kbd, samp {
+  code,
+  pre,
+  kbd,
+  samp {
     font-family: var(--font-mono);
     font-feature-settings: 'kern', 'lnum';
   }
@@ -106,7 +131,7 @@
   }
 
   :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-    outline: 2px solid var(--color-posterior);
+    outline: 2px solid var(--color-ink);
     outline-offset: 3px;
   }
 
@@ -121,16 +146,20 @@
     min-height: 2.75rem;
   }
 
-  h1, h2, h3 {
+  h1,
+  h2,
+  h3 {
     text-wrap: balance;
   }
 
-  p, li, figcaption {
+  p,
+  li,
+  figcaption {
     text-wrap: pretty;
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--color-posterior) 18%, transparent);
+    background: color-mix(in oklab, var(--color-rule) 70%, transparent);
   }
 }
 
@@ -147,8 +176,12 @@
     max-width: var(--container-wide);
     margin-inline: auto;
   }
-  .rule-top    { border-top: 1px solid var(--color-rule); }
-  .rule-bottom { border-bottom: 1px solid var(--color-rule); }
+  .rule-top {
+    border-top: 1px solid var(--color-rule);
+  }
+  .rule-bottom {
+    border-bottom: 1px solid var(--color-rule);
+  }
 
   .math-display {
     max-width: 100%;
@@ -157,18 +190,12 @@
     padding-block: 0.2rem;
   }
 
-  .newest-marker {
-    display: inline-block;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 999px;
-    background: var(--color-observed);
-    flex: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;

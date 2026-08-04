@@ -52,11 +52,14 @@ mkdirSync(outputDir, { recursive: true })
 try {
   for (let frame = 0; frame < frames; frame += 1) {
     const visible = Math.min(frame + 1, values.length)
-    const points = values.slice(0, visible).map((value, index) => {
-      const x = index / Math.max(1, frames - 1) * size
-      const y = center - value * scale
-      return `${x.toFixed(2)},${y.toFixed(2)}`
-    }).join(' ')
+    const points = values
+      .slice(0, visible)
+      .map((value, index) => {
+        const x = (index / Math.max(1, frames - 1)) * size
+        const y = center - value * scale
+        return `${x.toFixed(2)},${y.toFixed(2)}`
+      })
+      .join(' ')
     const fade = frame > frames - 16 ? (frames - frame) / 16 : 1
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">
 <rect width="512" height="512" fill="#FAFAF7"/>
@@ -67,8 +70,38 @@ try {
     writeFileSync(join(frameDir, `frame-${String(frame).padStart(4, '0')}.svg`), svg)
   }
 
-  execFileSync('ffmpeg', ['-y', '-framerate', String(fps), '-i', join(frameDir, 'frame-%04d.svg'), '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', new URL('../public/sketches/ornstein-uhlenbeck.mp4', import.meta.url).pathname], { stdio: 'inherit' })
-  execFileSync('ffmpeg', ['-y', '-i', join(frameDir, 'frame-0120.svg'), '-frames:v', '1', '-update', '1', new URL('../public/sketches/ornstein-uhlenbeck.png', import.meta.url).pathname], { stdio: 'inherit' })
+  execFileSync(
+    'ffmpeg',
+    [
+      '-y',
+      '-framerate',
+      String(fps),
+      '-i',
+      join(frameDir, 'frame-%04d.svg'),
+      '-c:v',
+      'libx264',
+      '-pix_fmt',
+      'yuv420p',
+      '-movflags',
+      '+faststart',
+      new URL('../public/sketches/ornstein-uhlenbeck.mp4', import.meta.url).pathname,
+    ],
+    { stdio: 'inherit' },
+  )
+  execFileSync(
+    'ffmpeg',
+    [
+      '-y',
+      '-i',
+      join(frameDir, 'frame-0120.svg'),
+      '-frames:v',
+      '1',
+      '-update',
+      '1',
+      new URL('../public/sketches/ornstein-uhlenbeck.png', import.meta.url).pathname,
+    ],
+    { stdio: 'inherit' },
+  )
 } finally {
   rmSync(frameDir, { recursive: true, force: true })
 }

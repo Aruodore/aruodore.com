@@ -7,7 +7,7 @@ version: 1.0.0
 author: Lucas Aruodore Adomi
 canonical_url: https://aruodore.com/pieces/brownian-motion
 license_url: https://creativecommons.org/licenses/by/4.0/
-citation_title: "Brownian Motion Simulation: Paths, Variance, and the Heat Equation"
+citation_title: 'Brownian Motion Simulation: Paths, Variance, and the Heat Equation'
 summary: One hundred thousand independent Brownian particles spreading from a common origin, with one path traced through the evolving three-dimensional distribution.
 learning_objectives:
   - Distinguish a single realised path from an ensemble distribution at a fixed time.
@@ -66,12 +66,12 @@ downloads:
     format: PNG
     description: Static fallback and slide-ready figure
   - label: Artifact notes
-    url: /pieces/brownian-motion/README.md
+    url: /pieces/brownian-motion/readme.md
     format: Markdown
     description: Figure and implementation notes
 ---
 
-::BrownianMotion
+::brownian-motion
 ::
 
 ## What is this?

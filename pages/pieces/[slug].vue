@@ -53,7 +53,9 @@ useHead(() => ({
     { property: 'og:title', content: piece.value!.citation_title },
     { property: 'og:description', content: piece.value!.summary },
     { property: 'og:url', content: piece.value!.canonical_url },
-    ...(piece.value!.preview_image ? [{ property: 'og:image', content: `${siteUrl}${piece.value!.preview_image}` }] : []),
+    ...(piece.value!.preview_image
+      ? [{ property: 'og:image', content: `${siteUrl}${piece.value!.preview_image}` }]
+      : []),
     { property: 'article:published_time', content: piece.value!.published },
     { property: 'article:modified_time', content: piece.value!.modified },
     { name: 'twitter:card', content: 'summary_large_image' },
@@ -62,12 +64,12 @@ useHead(() => ({
 }))
 
 // @nuxt/content v3 only auto-resolves components in components/content/. Piece
-// mounts live in components/pieces/ per CLAUDE.md §6 and are registered here
+// mounts live in components/pieces/ per claude.md and are registered here
 // explicitly for the MDC renderer. Math is handled by remark-math +
 // rehype-katex in the markdown pipeline and needs no component registration.
 const mdcComponents = {
-  BrownianMotion: defineAsyncComponent(() => import('~/components/pieces/BrownianMotion.vue')),
-  OrnsteinUhlenbeck: defineAsyncComponent(() => import('~/components/pieces/OrnsteinUhlenbeck.vue')),
+  'brownian-motion': defineAsyncComponent(() => import('~/components/pieces/brownian-motion.vue')),
+  'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
 }
 </script>
 
@@ -82,7 +84,11 @@ const mdcComponents = {
       </p>
     </header>
 
-    <section v-if="piece.learning_objectives?.length" class="prose-column mt-8 rule-top pt-5" aria-labelledby="objectives-heading">
+    <section
+      v-if="piece.learning_objectives?.length"
+      class="prose-column mt-8 rule-top pt-5"
+      aria-labelledby="objectives-heading"
+    >
       <h2 id="objectives-heading" class="font-serif text-lg">What this piece is for</h2>
       <ul class="mt-3 list-disc space-y-1 pl-5 text-sm">
         <li v-for="objective in piece.learning_objectives" :key="objective">{{ objective }}</li>
@@ -94,7 +100,7 @@ const mdcComponents = {
          width via the styles below; the embedded interactive (a <figure>)
          keeps the full wide-column width naturally. -->
     <div class="piece-body mt-10">
-      <ContentRenderer :value="piece" :components="mdcComponents" />
+      <content-renderer :value="piece" :components="mdcComponents" />
     </div>
 
     <footer v-if="piece.references?.length" class="prose-column mt-12 rule-top pt-6">
@@ -102,26 +108,42 @@ const mdcComponents = {
       <ol class="mt-4 space-y-2 text-sm">
         <li v-for="(r, i) in piece.references" :key="i">
           {{ r.author }} ({{ r.year }}).
-          <template v-if="r.kind === 'book'"><em>{{ r.title }}.</em></template>
+          <template v-if="r.kind === 'book'"
+            ><em>{{ r.title }}.</em></template
+          >
           <template v-else>{{ r.title }}.</template>
-          <template v-if="r.venue">{{ ' ' }}<em v-if="r.kind === 'paper'">{{ r.venue }}</em><span v-else>{{ r.venue }}</span>.</template>
-          <template v-if="r.url">{{ ' ' }}<a :href="r.url" rel="noopener">{{ r.url }}</a></template>
+          <template v-if="r.venue"
+            >{{ ' ' }}<em v-if="r.kind === 'paper'">{{ r.venue }}</em
+            ><span v-else>{{ r.venue }}</span
+            >.</template
+          >
+          <template v-if="r.url"
+            >{{ ' ' }}<a :href="r.url" rel="noopener">{{ r.url }}</a></template
+          >
         </li>
       </ol>
     </footer>
 
-    <section v-if="piece.downloads?.length" class="prose-column mt-12 rule-top pt-6" aria-labelledby="downloads-heading">
+    <section
+      v-if="piece.downloads?.length"
+      class="prose-column mt-12 rule-top pt-6"
+      aria-labelledby="downloads-heading"
+    >
       <h2 id="downloads-heading" class="font-serif text-xl">Downloads and source</h2>
       <ul class="mt-4 space-y-3 text-sm">
         <li v-for="download in piece.downloads" :key="download.url">
           <a :href="download.url" download>{{ download.label }}</a>
-          <span class="text-muted"> · {{ download.format }}<template v-if="download.description"> · {{ download.description }}</template></span>
+          <span class="text-muted">
+            · {{ download.format }}<template v-if="download.description"> · {{ download.description }}</template></span
+          >
         </li>
-        <li v-if="piece.source_file_url"><a :href="piece.source_file_url" rel="noopener">Read the simulation source</a></li>
+        <li v-if="piece.source_file_url">
+          <a :href="piece.source_file_url" rel="noopener">Read the simulation source</a>
+        </li>
       </ul>
     </section>
 
-    <PublicationDetails
+    <publication-details
       class="prose-column mt-12"
       :title="piece.citation_title"
       :author="piece.author"
@@ -159,9 +181,13 @@ const mdcComponents = {
   margin-top: 2rem;
   margin-bottom: 0.5rem;
 }
-.piece-body :deep(p)  { margin-bottom: 1rem; }
+.piece-body :deep(p) {
+  margin-bottom: 1rem;
+}
 .piece-body :deep(p),
-.piece-body :deep(li) { line-height: 1.65; }
+.piece-body :deep(li) {
+  line-height: 1.65;
+}
 .piece-body :deep(.katex-display) {
   display: block;
   width: 100%;
@@ -179,8 +205,13 @@ footer a {
   overflow-wrap: anywhere;
 }
 .piece-body :deep(ul),
-.piece-body :deep(ol) { padding-left: 1.25rem; list-style: disc; }
-.piece-body :deep(ol) { list-style: decimal; }
+.piece-body :deep(ol) {
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.piece-body :deep(ol) {
+  list-style: decimal;
+}
 .piece-body :deep(code) {
   font-size: 0.9em;
   background: color-mix(in oklab, var(--color-rule) 50%, transparent);
@@ -188,12 +219,5 @@ footer a {
   border-radius: 2px;
 }
 </style>
-.piece-body {
-  min-width: 0;
-  max-width: 100%;
-}
-.piece-body :deep(> div),
-.piece-body :deep(figure) {
-  min-width: 0;
-  max-width: 100%;
-}
+.piece-body { min-width: 0; max-width: 100%; } .piece-body :deep(> div), .piece-body :deep(figure) { min-width: 0;
+max-width: 100%; }
