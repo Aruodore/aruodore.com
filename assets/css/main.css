@@ -26,9 +26,9 @@
   --color-current: currentColor;
 
   /* Typography */
-  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, serif;
+  --font-serif: 'STIX Two Text Variable', 'STIX Two Text', 'Times New Roman', serif;
   --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: 'Inter Variable', Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 
   /* Layout widths */
   --container-prose: 35rem; /* narrow prose column */
