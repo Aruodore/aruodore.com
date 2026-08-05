@@ -1,4 +1,4 @@
-# Preview assets — brownian-motion
+# Preview assets: brownian-motion
 
 `preview.png` (still) and `preview.mp4` (loop) to be captured by the
 owner from a running instance of `/pieces/brownian-motion`. The

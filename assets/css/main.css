@@ -2,7 +2,7 @@
 @import 'tailwindcss';
 
 /* ──────────────────────────────────────────────────────────────
- * LOCKED design tokens — Tailwind v4 CSS-first config.
+ * LOCKED design tokens: Tailwind v4 CSS-first config.
  *
  * Every color used on the site MUST come from this list. The
  * signal colors carry consistent semantic meaning across every
@@ -11,15 +11,15 @@
  * identity.
  * ────────────────────────────────────────────────────────────── */
 @theme {
-  /* Reset the default Tailwind palette — we control every color. */
+  /* Reset the default Tailwind palette: we control every color. */
   --color-*: initial;
   --font-*: initial;
 
   /* Surface */
-  --color-bg: #fafaf7; /* off-white, warm — page background */
-  --color-ink: #1a1a1a; /* near-black — primary text */
-  --color-muted: #6b6b66; /* muted — secondary text, captions */
-  --color-rule: #d8d8d2; /* faint — grid lines, rules, borders */
+  --color-bg: #fafaf7; /* off-white, warm; page background */
+  --color-ink: #1a1a1a; /* near-black; primary text */
+  --color-muted: #6b6b66; /* muted; secondary text, captions */
+  --color-rule: #d8d8d2; /* faint; grid lines, rules, borders */
 
   /* Keep transparent + currentColor available. */
   --color-transparent: transparent;
@@ -56,7 +56,7 @@
 }
 
 /* ──────────────────────────────────────────────────────────────
- * Base layer — defaults that flow from the tokens above.
+ * Base layer: defaults that flow from the tokens above.
  * ────────────────────────────────────────────────────────────── */
 @layer base {
   html {
@@ -69,7 +69,7 @@
   }
 
   /* Defense-in-depth against horizontal page scroll on mobile. The layout
-     should never push past the viewport — `clip` enforces that without
+     should never push past the viewport: `clip` enforces that without
      introducing a scroll context (unlike `hidden`, which would). */
   html,
   body {
@@ -164,7 +164,7 @@
 }
 
 /* ──────────────────────────────────────────────────────────────
- * Components — small composable utilities. Keep this list short;
+ * Components: small composable utilities. Keep this list short;
  * if it grows past a handful, lift the pattern into a Vue component.
  * ────────────────────────────────────────────────────────────── */
 @layer components {

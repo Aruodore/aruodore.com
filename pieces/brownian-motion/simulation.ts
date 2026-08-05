@@ -1,19 +1,19 @@
 /*
- * Three-dimensional Brownian motion — N independent walkers in R^3.
+ * Three-dimensional Brownian motion: N independent walkers in R^3.
  *
  * Each particle X_t in R^3 evolves under the stochastic differential
  * equation
  *
  *     dX_t = sigma dW_t,
  *
- * where W_t is a standard 3D Wiener process — three independent 1D
- * Brownian motions, one per coordinate. The transition density from
+ * where W_t is a standard 3D Wiener process (three independent 1D
+ * Brownian motions, one per coordinate). The transition density from
  * the origin at time t is the isotropic 3D Gaussian
  *
  *     p(x, t) = (2 pi sigma^2 t)^{-3/2} exp(-||x||^2 / (2 sigma^2 t)),
  *
  * which has variance sigma^2 t per coordinate. The cloud's
- * one-sigma radius therefore grows as sigma * sqrt(t), not sigma * t —
+ * one-sigma radius therefore grows as sigma * sqrt(t), not sigma * t:
  * the signature of diffusion as opposed to ballistic transport.
  *
  * The density p(x, t) also satisfies the heat equation
@@ -28,7 +28,7 @@
  *
  *     X_{t+dt} = X_t + sigma * sqrt(dt) * Z.
  *
- * The scale factor sigma * sqrt(dt) — not sigma * dt — is what
+ * The scale factor sigma * sqrt(dt), not sigma * dt, is what
  * preserves the variance sigma^2 t of true Brownian motion under
  * discretisation. The sqrt comes from the quadratic variation of W_t,
  * the same property that makes Brownian paths nowhere differentiable.
@@ -53,7 +53,7 @@ const N_PARTICLES = 100_000
 
 // Diffusion coefficient and timestep. With sigma = 1 and dt = 1/62.5,
 // the cloud's per-axis standard deviation at simulation time t = 5 s
-// is sqrt(5) ≈ 2.24 units — comfortably inside the default camera
+// is sqrt(5) ≈ 2.24 units, comfortably inside the default camera
 // distance of ~9.43 units so the cloud reads as expansion rather than
 // overflow during the first few seconds after a reset.
 const SIGMA = 1
@@ -84,7 +84,7 @@ const POINT_SIZE = 0.07
 const MIN_DISTANCE = 2
 const MAX_DISTANCE = 60
 
-// Pixel ratio cap — devicePixelRatio above 2 burns fillrate for
+// Pixel ratio cap: devicePixelRatio above 2 burns fillrate for
 // imperceptible gains at this point density.
 const MAX_PIXEL_RATIO = 2
 
@@ -216,7 +216,7 @@ export function mountBrownianMotion(container: HTMLElement, opts: BrownianMotion
   controls.maxDistance = MAX_DISTANCE
 
   // Random source ------------------------------------------------------
-  // One sampler instance — the internal cache reuses the second
+  // One sampler instance: the internal cache reuses the second
   // Box–Muller sample of every pair so no random is wasted across
   // particles, even though each particle needs 3 normals and one
   // Box–Muller call yields 2.

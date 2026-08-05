@@ -1,6 +1,6 @@
 import { defineContentConfig, defineCollection, z } from '@nuxt/content'
 
-// Three content collections. Each has a strict frontmatter schema —
+// Three content collections. Each has a strict frontmatter schema:
 // adding a piece, sketch, or note that doesn't conform fails the build.
 
 const referenceSchema = z.object({

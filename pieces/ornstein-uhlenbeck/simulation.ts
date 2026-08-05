@@ -1,5 +1,5 @@
 /*
- * Three-dimensional Ornstein–Uhlenbeck process — N independent paths.
+ * Three-dimensional Ornstein–Uhlenbeck process: N independent paths.
  *
  * Each coordinate follows
  *

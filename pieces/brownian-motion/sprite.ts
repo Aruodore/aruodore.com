@@ -9,7 +9,7 @@ import * as THREE from 'three'
  * Alpha is composited against the light page background, so the
  * accumulation of many overlapping particles reads as ink density
  * rather than additive glow. Additive blending is wrong on a light
- * background — it brightens toward white instead of darkening.
+ * background: it brightens toward white instead of darkening.
  */
 
 const SIZE = 32

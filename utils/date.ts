@@ -1,5 +1,5 @@
 /**
- * Format an ISO date as a quiet "Mon YYYY" — used in indexes and timestamps.
+ * Format an ISO date as a quiet "Mon YYYY", used in indexes and timestamps.
  * Numeric prose uses tabular figures via the .tnum class, not this helper.
  */
 export function formatMonth(iso: string): string {
