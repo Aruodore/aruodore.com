@@ -59,7 +59,7 @@ references:
     url: https://arxiv.org/abs/2011.13456
 preview_image: /pieces/brownian-motion/preview.png
 source_url: https://github.com/Aruodore/aruodore.com
-source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/aruodore/pieces/brownian-motion/simulation.ts
+source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/brownian-motion/simulation.ts
 downloads:
   - label: Brownian motion figure
     url: /pieces/brownian-motion/preview.png

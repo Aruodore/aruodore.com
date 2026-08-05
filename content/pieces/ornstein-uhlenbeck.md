@@ -47,7 +47,7 @@ references:
     venue: Academic Press
 preview_image: /pieces/ornstein-uhlenbeck/preview.png
 source_url: https://github.com/Aruodore/aruodore.com
-source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/aruodore/pieces/ornstein-uhlenbeck/simulation.ts
+source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/ornstein-uhlenbeck/simulation.ts
 downloads:
   - label: Ornstein–Uhlenbeck figure
     url: /pieces/ornstein-uhlenbeck/preview.png
