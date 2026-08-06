@@ -15,10 +15,12 @@ const ignoredDirectories = new Set([
 ])
 const exactExceptions = new Set([
   '.prettierrc.json',
+  'CITATION.cff',
   'CLAUDE.md',
   'LICENSE',
   'package.json',
   'package-lock.json',
+  'README.md',
   'tsconfig.json',
 ])
 const frameworkPatterns = [/^\[[a-z0-9-]+\]\.vue$/]

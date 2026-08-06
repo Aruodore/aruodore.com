@@ -50,16 +50,16 @@ These exclusions are not negotiable. Reject suggestions that introduce any of th
 
 Five sections. No more.
 
-| Route                  | Purpose                                                                                                                          |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `/`                    | Home. Name, one-line tagline, **curated landing** showing the most recent **8 pieces** with thumbnails. Sparser than the archive; designed to breathe. Most recent first. |
-| `/pieces`              | **Full chronological archive of every piece.** Exhaustive, no curation, no item cap.                                               |
-| `/pieces/[slug]`       | Each deep interactive at its own URL. Interactive at the top; writeup, equations, references, and source link below.              |
-| `/sketches`            | Gallery of small looping statistical visualizations. Square tiles link to an equation, a live sketch, and a short paragraph.      |
-| `/sketches/[slug]`     | Detail page for one sketch.                                                                                                       |
-| `/notes`               | Index of short-form writing: paper observations, half-formed ideas, small experiments. Chronological.                            |
-| `/notes/[slug]`        | Individual note.                                                                                                                  |
-| `/about`               | Single page. Two paragraphs of plain prose. Who, what, email. No photo unless added later. No services menu.                       |
+| Route              | Purpose                                                                                                                                                                   |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                | Home. Name, one-line tagline, **curated landing** showing the most recent **8 pieces** with thumbnails. Sparser than the archive; designed to breathe. Most recent first. |
+| `/pieces`          | **Full chronological archive of every piece.** Exhaustive, no curation, no item cap.                                                                                      |
+| `/pieces/[slug]`   | Each deep interactive at its own URL. Interactive at the top; writeup, equations, references, and source link below.                                                      |
+| `/sketches`        | Gallery of small looping statistical visualizations. Square tiles link to an equation, a live sketch, and a short paragraph.                                              |
+| `/sketches/[slug]` | Detail page for one sketch.                                                                                                                                               |
+| `/notes`           | Index of short-form writing: paper observations, half-formed ideas, small experiments. Chronological.                                                                     |
+| `/notes/[slug]`    | Individual note.                                                                                                                                                          |
+| `/about`           | Single page. Two paragraphs of plain prose. Who, what, email. No photo unless added later. No services menu.                                                              |
 
 Home and `/pieces` are not redundant: home is **curated and breathes** (a landing, fewer items, more whitespace); `/pieces` is **exhaustive** (an archive, every piece, in order, indefinitely). If a future session asks why both exist, that is the answer.
 
@@ -83,15 +83,15 @@ Design philosophy:
 
 Every color used on the site must come from this list. **No exceptions.** Do not introduce new colors per piece. The consistency itself is part of the identity.
 
-| Token         | Hex       | Semantic role                                       |
-| ------------- | --------- | ---------------------------------------------------- |
-| `bg`          | `#FAFAF7` | Off-white, warm. Page background.                   |
-| `ink`         | `#1A1A1A` | Near-black. Primary text.                           |
-| `muted`       | `#6B6B66` | Secondary text, captions, timestamps.               |
-| `rule`        | `#D8D8D2` | Faint grid lines, rules, borders, divider lines.    |
-| `posterior`   | `#1E3A5F` | Deep navy. **Posterior / inferred quantities.**     |
-| `observed`    | `#C77B3C` | Warm orange. **Observed data.**                     |
-| `prior`       | `#4A7A6A` | Muted teal. **Prior distributions.**                |
+| Token       | Hex       | Semantic role                                    |
+| ----------- | --------- | ------------------------------------------------ |
+| `bg`        | `#FAFAF7` | Off-white, warm. Page background.                |
+| `ink`       | `#1A1A1A` | Near-black. Primary text.                        |
+| `muted`     | `#6B6B66` | Secondary text, captions, timestamps.            |
+| `rule`      | `#D8D8D2` | Faint grid lines, rules, borders, divider lines. |
+| `posterior` | `#1E3A5F` | Deep navy. **Posterior / inferred quantities.**  |
+| `observed`  | `#C77B3C` | Warm orange. **Observed data.**                  |
+| `prior`     | `#4A7A6A` | Muted teal. **Prior distributions.**             |
 
 The three **signal colors** (`posterior`, `observed`, `prior`) carry consistent semantic meaning across every chart and accent on the site. If a piece visualises a Bayesian update, the prior is teal, the data is orange, the posterior is navy. Don't deviate even when "it would look nicer" with another color: the consistency is the point.
 
@@ -117,9 +117,9 @@ Numbers in prose use proper typesetting:
 
 ### 4.4 Section grammar and chrome accents (LOCKED)
 
-These rules codify the only places the site activates anything beyond `ink` / `muted` / `rule`. The locked palette of §4.1 is only meaningful once a visitor *sees* the signal colors; the chrome activates the palette in the smallest deliberate way possible.
+These rules codify the only places the site activates anything beyond `ink` / `muted` / `rule`. The locked palette of §4.1 is only meaningful once a visitor _sees_ the signal colors; the chrome activates the palette in the smallest deliberate way possible.
 
-- **Mono kicker** (`font-sans uppercase tracking-widest text-xs text-muted`) is reserved for **metadata strips only**: a "Published 19 May 2026 · source" line on a piece, a "Markov chain Monte Carlo · 19 May 2026" line on a sketch, a "19 May 2026 · Brownian motion · scaling" line on a note. It is **never** used as a section heading. Page-level section headings are serif, in the same family as the body, sized one step above body and set in italic when the section names a category of work (e.g. *Pieces*, *References*).
+- **Mono kicker** (`font-sans uppercase tracking-widest text-xs text-muted`) is reserved for **metadata strips only**: a "Published 19 May 2026 · source" line on a piece, a "Markov chain Monte Carlo · 19 May 2026" line on a sketch, a "19 May 2026 · Brownian motion · scaling" line on a note. It is **never** used as a section heading. Page-level section headings are serif, in the same family as the body, sized one step above body and set in italic when the section names a category of work (e.g. _Pieces_, _References_).
 - **Freshest-item accent.** On every chronological index (`/`, `/pieces`, `/notes`), all dates are rendered in `muted`. The first date is preceded by a small `observed` (warm orange) marker and accessible "Newest" text. The marker is the newest observation, meets 3:1 non-text contrast, and is never the only indication. Sketches index (a grid, not a chronological list) is excluded.
 - **Active navigation.** The current section's nav link is rendered in `ink` with a 1px `posterior` (deep navy) underline at 6px offset. All other nav links are `muted`, no underline. The active state should change on route change without animation.
 
@@ -129,17 +129,17 @@ These three activations are the entirety of the signal-color usage on chrome. Ch
 
 ## 5. Tech stack (DECIDED, do not debate)
 
-| Layer                  | Choice                                                                                  |
-| ----------------------- | ----------------------------------------------------------------------------------------- |
-| Framework              | Nuxt 3 (Vue 3, Composition API, `<script setup>`)                                        |
-| Content                | `@nuxt/content` v3, markdown collections defined in `content.config.ts`                |
-| Math                   | KaTeX at build time through the Markdown pipeline                                       |
-| Styling                | **Tailwind CSS v4** (CSS-first config in `assets/css/main.css` via `@theme`)             |
-| 3D                     | Three.js for fast 3D pieces                                                              |
-| Compute pieces         | Raw WebGPU, written as framework-agnostic JS inside Vue components that mount a canvas  |
-| Build                  | Static, `nuxt generate`                                                                 |
-| Hosting                | Cloudflare Pages or Vercel                                                               |
-| Analytics              | Plausible, if any. Nothing else.                                                         |
+| Layer          | Choice                                                                                 |
+| -------------- | -------------------------------------------------------------------------------------- |
+| Framework      | Nuxt 3 (Vue 3, Composition API, `<script setup>`)                                      |
+| Content        | `@nuxt/content` v3, markdown collections defined in `content.config.ts`                |
+| Math           | KaTeX at build time through the Markdown pipeline                                      |
+| Styling        | **Tailwind CSS v4** (CSS-first config in `assets/css/main.css` via `@theme`)           |
+| 3D             | Three.js for fast 3D pieces                                                            |
+| Compute pieces | Raw WebGPU, written as framework-agnostic JS inside Vue components that mount a canvas |
+| Build          | Static, `nuxt generate`                                                                |
+| Hosting        | Cloudflare Pages or Vercel                                                             |
+| Analytics      | Plausible, if any. Nothing else.                                                       |
 
 Anti-stack (do not introduce):
 
@@ -198,7 +198,7 @@ This repository is a standalone, single-site repo for `aruodore.com`. It was spl
    └─ sketches/                  ← per-sketch preview clips
 ```
 
-**The Vue/simulation split is load-bearing.** A piece's Vue component does three things only: mount a canvas, boot the simulation, clean up on unmount. The simulation module knows nothing about Vue; it could be lifted out of Nuxt entirely. See `components/pieces/BrownianMotion.vue` + `pieces/brownian-motion/simulation.ts` for the reference implementation.
+**The Vue/simulation split is load-bearing.** A piece's Vue component does three things only: mount a canvas, boot the simulation, clean up on unmount. The simulation module knows nothing about Vue; it could be lifted out of Nuxt entirely. See `components/pieces/brownian-motion.vue` + `pieces/brownian-motion/simulation.ts` for the reference implementation.
 
 ---
 
@@ -215,14 +215,13 @@ title: string
 slug: string
 published: ISO date (YYYY-MM-DD)
 summary: one-sentence string
-math_topics: [string]          # e.g. ["Brownian motion", "stochastic differential equations"]
-techniques:  [string]          # e.g. ["WebGPU", "compute shader"]
-references: [                  # at least 2–3 entries for most pieces
-  { author: string, title: string, year: number, url?: string }
-]
-preview_video: path            # optional, looping clip on home/index
-preview_image: path            # optional, still fallback
-source_url: url                # link to GitHub source
+math_topics: [string] # e.g. ["Brownian motion", "stochastic differential equations"]
+techniques: [string] # e.g. ["WebGPU", "compute shader"]
+references: # at least 2–3 entries for most pieces
+  [{ author: string, title: string, year: number, url?: string }]
+preview_video: path # optional, looping clip on home/index
+preview_image: path # optional, still fallback
+source_url: url # link to GitHub source
 ```
 
 Body: writeup with KaTeX math using Markdown `$…$` and `$$…$$`, embedded Vue components for the interactive (MDC `::ComponentName` syntax), citations in inline author-year format. Do not render `equation_latex` through a Vue component.
@@ -240,10 +239,10 @@ The writeup answers, in this order:
 title: string
 slug: string
 published: ISO date
-equation_latex: string         # the equation in LaTeX, no $$ wrapping
-distribution_or_process: string  # e.g. "Ornstein–Uhlenbeck process"
+equation_latex: string # the equation in LaTeX, no $$ wrapping
+distribution_or_process: string # e.g. "Ornstein–Uhlenbeck process"
 one_sentence_description: string
-preview_clip: path             # optional
+preview_clip: path # optional
 ```
 
 Body: optional, usually 1–2 paragraphs. Sketches are not mini-pieces. They are: one equation, one sentence, the visual.
@@ -308,7 +307,7 @@ In all deviations: the writeup still follows the four-question structure (§7.1)
 - **TypeScript everywhere. Strict mode.** `noUncheckedIndexedAccess` is on: handle the `undefined` cases.
 - **Vue Composition API with `<script setup>`.** No Options API.
 - Components are small and focused. **If a component exceeds ~200 lines, it's probably doing too much.** Split it.
-- **Comments, scope-dependent rule.** Simulation code under `pieces/[slug]/` includes comments explaining the **mathematics**, the *what*, not only the *why*, because the math *is* the content. A reader who knows the math should be able to follow the simulation from the comments alone. Everything else (Vue components, composables, utilities, pages, layouts) follows the default: **no comments unless the *why* is non-obvious**, a hidden constraint, a subtle invariant, a workaround. Do not narrate what the code does.
+- **Comments, scope-dependent rule.** Simulation code under `pieces/[slug]/` includes comments explaining the **mathematics**, the _what_, not only the _why_, because the math _is_ the content. A reader who knows the math should be able to follow the simulation from the comments alone. Everything else (Vue components, composables, utilities, pages, layouts) follows the default: **no comments unless the _why_ is non-obvious**, a hidden constraint, a subtle invariant, a workaround. Do not narrate what the code does.
 - Variables in simulation code use mathematical naming where it aids clarity: `mu`, `sigma`, `dt`, `N`, `theta`. Readable to anyone who knows the math, not just the codebase.
 - **No magic numbers in simulation code.** Constants are named and documented.
 - Tailwind v4 utilities only use tokens from §4.1: `bg-bg`, `text-ink`, `text-muted`, `border-rule`, `text-posterior`, etc. If a class references a color outside the palette, the build is silently wrong.
@@ -318,7 +317,7 @@ In all deviations: the writeup still follows the four-question structure (§7.1)
 ### 9.1 File and component naming
 
 - Name every repository-owned file in lowercase kebab-case, including Vue components, composables, scripts, documentation, tests, and static assets.
-- Exceptions are permitted only when required by a framework, operating system, package manager, legal convention, or development tool. Current exceptions: `CLAUDE.md` (Claude instructions), `LICENSE` (legal convention), `package.json` and `package-lock.json` (npm), `tsconfig.json` (TypeScript), `.prettierrc.json` (Prettier), Nuxt route parameters such as `[slug].vue`, dotfiles, and GitHub-required paths under `.github/`.
+- Exceptions are permitted only when required by a framework, operating system, package manager, legal convention, or development tool. Current exceptions: `CLAUDE.md` (Claude instructions), `LICENSE` (legal convention), `README.md` and `CITATION.cff` (GitHub/Citation File Format conventions requiring exact casing), `package.json` and `package-lock.json` (npm), `tsconfig.json` (TypeScript), `.prettierrc.json` (Prettier), Nuxt route parameters such as `[slug].vue`, dotfiles, and GitHub-required paths under `.github/`.
 - Use kebab-case for component tags and MDC component names wherever the framework permits it, including Nuxt built-ins.
 - Use PascalCase only for TypeScript component variables when the language or API requires it; TypeScript functions, interfaces, types, and imports follow normal TypeScript naming conventions.
 
@@ -449,6 +448,6 @@ These were chosen during the initial scaffold and noted here for review.
 3. When the owner asks for a piece, follow §11 exactly.
 4. When in doubt about a design or content question, choose the option more consistent with §1 ("Probability is not abstract: here, watch it move"). When in doubt about a feature, prefer to do less.
 
-If a request conflicts with this file, surface the conflict explicitly: *"This is in tension with §X of CLAUDE.md, which says Y. Override?"* Don't silently break the rules. Don't silently widen the scope.
+If a request conflicts with this file, surface the conflict explicitly: _"This is in tension with §X of CLAUDE.md, which says Y. Override?"_ Don't silently break the rules. Don't silently widen the scope.
 
 - **Maintenance.** This document is updated by the owner. Proposed changes are made by editing this file **in the same change** as the code or content that requires the change, never as a separate cleanup pass. If a session would benefit from a rule that doesn't exist yet, propose the addition, get explicit approval, and write it into this file in the same change.

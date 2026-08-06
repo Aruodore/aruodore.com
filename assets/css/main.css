@@ -189,7 +189,6 @@
     overflow-y: hidden;
     padding-block: 0.2rem;
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {

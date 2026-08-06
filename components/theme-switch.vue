@@ -19,7 +19,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <button type="button" class="theme-switch" :aria-label="`Use ${theme === 'dark' ? 'light' : 'dark'} theme`" @click="toggleTheme">
+  <button
+    type="button"
+    class="theme-switch"
+    :aria-label="`Use ${theme === 'dark' ? 'light' : 'dark'} theme`"
+    @click="toggleTheme"
+  >
     {{ theme === 'dark' ? 'Light' : 'Dark' }}
   </button>
 </template>
