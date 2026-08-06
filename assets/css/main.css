@@ -36,23 +36,7 @@
 }
 
 :root {
-  color-scheme: light dark;
-}
-
-:root[data-theme='dark'] {
-  --color-bg: #11110f;
-  --color-ink: #e8e6df;
-  --color-muted: #aaa8a0;
-  --color-rule: #383834;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg: #11110f;
-    --color-ink: #e8e6df;
-    --color-muted: #aaa8a0;
-    --color-rule: #383834;
-  }
+  color-scheme: light;
 }
 
 /* ──────────────────────────────────────────────────────────────

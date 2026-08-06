@@ -31,16 +31,11 @@ export default defineNuxtConfig({
           content:
             'Interactive, browser-native work at the intersection of probability, statistical inference, computer vision, and machine learning.',
         },
-        { name: 'color-scheme', content: 'light dark' },
-        { name: 'theme-color', content: '#fafaf7', media: '(prefers-color-scheme: light)' },
-        { name: 'theme-color', content: '#11110f', media: '(prefers-color-scheme: dark)' },
+        { name: 'color-scheme', content: 'light' },
+        { name: 'theme-color', content: '#fafaf7' },
       ],
       link: [{ rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' }],
       script: [
-        {
-          innerHTML:
-            "(()=>{try{const t=localStorage.getItem('aruodore-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch{}})()",
-        },
         {
           type: 'application/ld+json',
           innerHTML: JSON.stringify({

@@ -44,7 +44,6 @@ function isActive(to: string): boolean {
         >
           {{ item.label }}
         </nuxt-link>
-        <theme-switch />
       </nav>
     </header>
 
