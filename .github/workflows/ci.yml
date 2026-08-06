@@ -58,6 +58,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npx playwright install --with-deps chromium
       - run: npm run generate
       - run: npm run test:performance
       - uses: actions/upload-artifact@v4
