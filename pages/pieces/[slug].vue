@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { formatDay } from '~/utils/date'
+import { SITE_AUTHOR } from '~/utils/identity'
 import { defineAsyncComponent } from 'vue'
 
 const route = useRoute()
@@ -43,7 +44,10 @@ useHead(() => ({
     { name: 'description', content: piece.value!.summary },
     { name: 'author', content: piece.value!.author },
     { name: 'citation_title', content: piece.value!.citation_title },
-    { name: 'citation_author', content: 'Adomi, Lucas Aruodore' },
+    {
+      name: 'citation_author',
+      content: piece.value!.author === SITE_AUTHOR.fullName ? SITE_AUTHOR.citationName : piece.value!.author,
+    },
     { name: 'citation_publication_date', content: piece.value!.published },
     { name: 'citation_online_date', content: piece.value!.published },
     { name: 'citation_fulltext_html_url', content: piece.value!.canonical_url },
@@ -79,7 +83,7 @@ const mdcComponents = {
       <h1 class="font-serif text-3xl tracking-tight">{{ piece.title }}</h1>
       <p class="mt-2 text-muted">{{ piece.summary }}</p>
       <p class="mt-3 font-sans text-xs uppercase tracking-widest text-muted tnum">
-        By {{ piece.author }} · Published {{ formatDay(piece.published) }} · v{{ piece.version }}
+        Published {{ formatDay(piece.published) }} · v{{ piece.version }}
         <span v-if="piece.source_url"> · <a :href="piece.source_url" rel="noopener">source</a></span>
       </p>
     </header>

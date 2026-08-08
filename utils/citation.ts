@@ -1,3 +1,5 @@
+import { SITE_AUTHOR } from './identity'
+
 export interface CitationDetails {
   title: string
   author: string
@@ -19,6 +21,7 @@ export function createBibtex(details: CitationDetails): string {
     .replace(/[^a-z0-9]+/g, '_')
     .replace(/^_|_$/g, '')
   const year = details.published.slice(0, 4)
+  const citationAuthor = details.author === SITE_AUTHOR.fullName ? SITE_AUTHOR.citationName : details.author
   const doi = details.doi ? `\n  doi       = {${details.doi}},` : ''
-  return `@misc{adomi_${keyTitle}_${year},\n  author    = {Adomi, Lucas Aruodore},\n  title     = {${details.title}},\n  year      = {${year}},\n  version   = {${details.version}},\n  publisher = {Aruodore},${doi}\n  url       = {${details.canonicalUrl}},\n  note      = {Interactive mathematical explanation and browser-based simulation}\n}`
+  return `@misc{adomi_${keyTitle}_${year},\n  author    = {${citationAuthor}},\n  title     = {${details.title}},\n  year      = {${year}},\n  version   = {${details.version}},\n  publisher = {Aruodore},${doi}\n  url       = {${details.canonicalUrl}},\n  note      = {Interactive mathematical explanation and browser-based simulation}\n}`
 }

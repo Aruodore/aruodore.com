@@ -1,4 +1,5 @@
 import tailwindcss from '@tailwindcss/vite'
+import { SITE_AUTHOR } from './utils/identity'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -43,7 +44,7 @@ export default defineNuxtConfig({
             '@type': 'WebSite',
             name: 'Aruodore',
             url: 'https://aruodore.com/',
-            author: { '@type': 'Person', name: 'Lucas Aruodore Adomi', url: 'https://aruodore.com/about' },
+            author: { '@type': 'Person', name: SITE_AUTHOR.fullName, url: SITE_AUTHOR.url },
           }),
         },
       ],
