@@ -50,11 +50,11 @@
     "@lhci/cli": "^0.15.1",
     "@nuxt/test-utils": "^4.1.0",
     "@playwright/test": "^1.62.1",
-    "@tailwindcss/vite": "^4.0.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/katex": "^0.16.7",
     "@vitest/coverage-v8": "^4.1.10",
     "@vue/test-utils": "^2.4.11",
-    "better-sqlite3": "^12.10.0",
+    "better-sqlite3": "^13.0.2",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-no-only-tests": "^3.4.0",
@@ -63,10 +63,10 @@
     "knip": "^6.31.0",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.0.0",
-    "typescript": "^5.6.0",
-    "typescript-eslint": "^8.65.0",
+    "typescript": "^7.0.2",
+    "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10",
-    "vue-tsc": "^2.1.0"
+    "vue-tsc": "^3.3.9"
   },
   "allowScripts": {
     "@parcel/watcher@2.5.6": true,
