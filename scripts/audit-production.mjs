@@ -8,6 +8,7 @@ const routes = [
   '/pieces',
   '/pieces/brownian-motion',
   '/pieces/ornstein-uhlenbeck',
+  '/pieces/first-passage',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

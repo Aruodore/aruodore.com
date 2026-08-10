@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">First passage of Brownian motion</title>
+  <desc id="desc">Orange Brownian paths stop when they first meet a horizontal boundary. A lower histogram records their hitting times beside a navy theoretical curve.</desc>
+  <rect width="900" height="600" fill="#FAFAF7"/>
+  <g stroke="#D8D8D2" fill="none"><path d="M64 50V446H872M64 492H872"/></g>
+  <g stroke="#C77B3C" stroke-width="1.2" fill="none" opacity=".27">
+    <path d="M64 342l21-13 21 22 21-38 21 18 21-40 21 11 21-26 21 19 21-44 21-12 21-35 21 15 21-29 21-18 21-38"/>
+    <path d="M64 342l21 23 21-10 21 31 21-44 21-19 21 34 21-49 21-38 21 21 21-54 21 14 21-44 21-42"/>
+    <path d="M64 342l21-31 21 17 21-48 21 24 21-63 21 16 21-41 21-56"/>
+    <path d="M64 342l21 41 21-18 21 27 21-9 21-43 21 19 21-38 21 9 21-32 21 25 21-50 21 11 21-47 21-37 21-40"/>
+    <path d="M64 342l21-12 21-34 21 18 21-45 21-28 21 13 21-49 21 7 21-52"/>
+    <path d="M64 342l21 17 21-45 21-9 21 22 21-51 21-13 21-40 21 18 21-47 21-34"/>
+    <path d="M64 342l21 30 21-16 21-25 21 14 21-38 21-20 21 11 21-56 21 13 21-38 21-37"/>
+  </g>
+  <path d="M64 160H872" stroke="#1A1A1A" stroke-width="2" opacity=".55"/>
+  <g fill="#C77B3C" opacity=".65"><rect x="152" y="546" width="8" height="18"/><rect x="206" y="530" width="8" height="34"/><rect x="264" y="516" width="8" height="48"/><rect x="322" y="522" width="8" height="42"/><rect x="386" y="538" width="8" height="26"/><rect x="458" y="545" width="8" height="19"/><rect x="540" y="552" width="8" height="12"/><rect x="648" y="557" width="8" height="7"/></g>
+  <path d="M65 563C125 562 168 548 210 522S286 496 332 507s96 34 160 42 190 13 380 14" fill="none" stroke="#1E3A5F" stroke-width="2"/>
+</svg>

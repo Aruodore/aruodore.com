@@ -5,6 +5,7 @@ describe('content component resolution', () => {
   it.each([
     ['content/pieces/brownian-motion.md', '::brownian-motion'],
     ['content/pieces/ornstein-uhlenbeck.md', '::ornstein-uhlenbeck'],
+    ['content/pieces/first-passage.md', '::first-passage'],
   ])('%s uses a registered kebab-case MDC component', (contentPath, embed) => {
     const content = readFileSync(contentPath, 'utf8')
     const page = readFileSync('pages/pieces/[slug].vue', 'utf8')

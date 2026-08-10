@@ -7,6 +7,7 @@ const routes = [
   '/pieces',
   '/pieces/brownian-motion',
   '/pieces/ornstein-uhlenbeck',
+  '/pieces/first-passage',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -32,7 +33,13 @@ for (const route of routes) {
 }
 
 test('@accessibility representative pages have no serious axe violations', async ({ page }) => {
-  for (const route of ['/', '/pieces/brownian-motion', '/pieces/ornstein-uhlenbeck', '/about']) {
+  for (const route of [
+    '/',
+    '/pieces/brownian-motion',
+    '/pieces/ornstein-uhlenbeck',
+    '/pieces/first-passage',
+    '/about',
+  ]) {
     await page.goto(route)
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze()
     expect(results.violations.filter((item) => ['serious', 'critical'].includes(item.impact ?? ''))).toEqual([])

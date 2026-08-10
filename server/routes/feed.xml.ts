@@ -1,5 +1,12 @@
 const entries = [
   {
+    title: 'First Passage of Brownian Motion: Hitting Times and the Reflection Principle',
+    url: 'https://aruodore.com/pieces/first-passage',
+    date: '2026-08-10T00:00:00Z',
+    summary:
+      'Brownian paths stop at an absorbing boundary, revealing the heavy-tailed distribution of their first hitting times.',
+  },
+  {
     title: 'Ornstein–Uhlenbeck Process: Mean Reversion and the Stationary Distribution',
     url: 'https://aruodore.com/pieces/ornstein-uhlenbeck',
     date: '2026-08-01T00:00:00Z',
@@ -30,5 +37,5 @@ export default defineEventHandler((event) => {
         `<entry><title>${escapeXml(entry.title)}</title><id>${entry.url}</id><link href="${entry.url}"/><updated>${entry.date}</updated><summary>${escapeXml(entry.summary)}</summary></entry>`,
     )
     .join('')
-  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-08-01T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
+  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-08-10T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
 })

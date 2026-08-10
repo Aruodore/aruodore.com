@@ -74,6 +74,7 @@ useHead(() => ({
 const mdcComponents = {
   'brownian-motion': defineAsyncComponent(() => import('~/components/pieces/brownian-motion.vue')),
   'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
+  'first-passage': defineAsyncComponent(() => import('~/components/pieces/first-passage.vue')),
 }
 </script>
 
