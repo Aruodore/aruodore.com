@@ -172,7 +172,8 @@ const mdcComponents = {
 .piece-body :deep(ul),
 .piece-body :deep(ol),
 .piece-body :deep(blockquote),
-.piece-body :deep(.math-display) {
+.piece-body :deep(.math-display),
+.piece-body :deep(.katex-display) {
   max-width: var(--container-prose);
   margin-inline: auto;
 }
@@ -199,7 +200,7 @@ const mdcComponents = {
   max-width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding-block: 0.25rem;
+  padding-block: 0.5rem;
 }
 .piece-body :deep(pre) {
   max-width: 100%;

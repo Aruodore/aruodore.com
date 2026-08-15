@@ -29,3 +29,4 @@ node_modules
 # Local agent tool settings
 .claude/settings.local.json
 .vercel
+.env*.local

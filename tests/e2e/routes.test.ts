@@ -32,6 +32,21 @@ for (const route of routes) {
   })
 }
 
+test('piece links complete client-side navigation', async ({ page }) => {
+  const errors: string[] = []
+  page.on('console', (message) => {
+    if (message.type() === 'error') errors.push(message.text())
+  })
+  page.on('pageerror', (error) => errors.push(error.message))
+
+  await page.goto('/pieces/')
+  await page.getByRole('link', { name: /First Passage/i }).click()
+
+  await expect(page).toHaveURL(/\/pieces\/first-passage$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'First Passage' })).toBeVisible()
+  expect(errors).toEqual([])
+})
+
 test('@accessibility representative pages have no serious axe violations', async ({ page }) => {
   for (const route of [
     '/',

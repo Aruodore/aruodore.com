@@ -73,18 +73,22 @@ $$
 The event $\{\tau_a\leq t\}$ depends on the maximum of the whole path up to time $t$, not only on its endpoint. The reflection principle gives
 
 $$
+\begin{aligned}
 \Pr(\tau_a\leq t)
-=\Pr\!\left(\max_{0\leq s\leq t}X_s\geq a\right)
-=2\left[1-\Phi\!\left(\frac{a}{\sigma\sqrt{t}}\right)\right],
+&=\Pr\!\left(\max_{0\leq s\leq t}X_s\geq a\right) \\
+&=2\left[1-\Phi\!\left(\frac{a}{\sigma\sqrt{t}}\right)\right].
+\end{aligned}
 $$
 
 where $\Phi$ is the standard normal cumulative distribution function. Differentiating gives the hitting-time density
 
 $$
+\begin{aligned}
 f_{\tau_a}(t)
-=\frac{a}{\sigma\sqrt{2\pi t^3}}
-\exp\!\left(-\frac{a^2}{2\sigma^2t}\right),
-\qquad t>0.
+&=\frac{a}{\sigma\sqrt{2\pi t^3}}
+\exp\!\left(-\frac{a^2}{2\sigma^2t}\right), \\
+&\hspace{8em} t>0.
+\end{aligned}
 $$
 
 The density has a long right tail. A Brownian path reaches every fixed positive level eventually with probability one, but the expected time required is infinite. A typical crossing time is therefore meaningful while the arithmetic mean is not.
@@ -100,8 +104,10 @@ It also exposes a distinction that endpoint plots can hide. A path may cross the
 The simulation uses the discrete update
 
 $$
-X_{n+1}=X_n+\sigma\sqrt{\Delta t}\,Z_n,
-\qquad Z_n\sim\mathcal N(0,1).
+\begin{aligned}
+X_{n+1}&=X_n+\sigma\sqrt{\Delta t}\,Z_n, \\
+Z_n&\sim\mathcal N(0,1).
+\end{aligned}
 $$
 
 Every path is generated in advance from a seeded pseudorandom sequence, making reset repeat the same experiment. Regenerate chooses a new seed. The first sampled point at or above the boundary is stored as that path's hitting time. Canvas 2D draws each path only as far as its recorded crossing and places the crossing time in the lower histogram. The histogram and theoretical density use one shared density scale, so their heights can be compared directly.
