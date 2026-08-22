@@ -21,6 +21,13 @@
   --color-muted: #6b6b66; /* muted; secondary text, captions */
   --color-rule: #d8d8d2; /* faint; grid lines, rules, borders */
 
+  /* Signal colors. These three carry fixed semantic meaning in every
+     chart and accent on the site: a prior is teal, data is orange, a
+     posterior is navy. Never reassigned per piece. */
+  --color-posterior: #1e3a5f; /* deep navy; posterior / inferred quantities */
+  --color-observed: #c77b3c; /* warm orange; observed data */
+  --color-prior: #4a7a6a; /* muted teal; prior distributions */
+
   /* Keep transparent + currentColor available. */
   --color-transparent: transparent;
   --color-current: currentColor;

@@ -1,5 +1,12 @@
 const entries = [
   {
+    title: 'Beta-Binomial Update: Conjugacy and Sequential Bayesian Inference',
+    url: 'https://aruodore.com/pieces/beta-binomial-update',
+    date: '2026-08-17T00:00:00Z',
+    summary:
+      'A beta prior meets Bernoulli trials one at a time, and the posterior responds to a probability it is never told.',
+  },
+  {
     title: 'First Passage of Brownian Motion: Hitting Times and the Reflection Principle',
     url: 'https://aruodore.com/pieces/first-passage',
     date: '2026-08-10T00:00:00Z',

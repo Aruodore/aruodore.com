@@ -9,6 +9,7 @@ const routes = [
   '/pieces/brownian-motion',
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
+  '/pieces/beta-binomial-update',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -23,7 +24,7 @@ for (const route of routes) {
     for (const required of ['<title>', 'name="description"', 'rel="canonical"']) {
       if (!html.includes(required)) failures.push(`${route}: missing ${required}`)
     }
-    if (/<(?:brownian-motion|ornstein-uhlenbeck)(?:\s|>)/.test(html))
+    if (/<(?:brownian-motion|ornstein-uhlenbeck|first-passage|beta-binomial-update)(?:\s|>)/.test(html))
       failures.push(`${route}: unresolved custom element`)
   } catch {
     failures.push(`${route}: generated page missing`)

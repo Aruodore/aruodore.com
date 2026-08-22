@@ -5,6 +5,7 @@ const paths = [
   '/pieces/brownian-motion',
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
+  '/pieces/beta-binomial-update',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

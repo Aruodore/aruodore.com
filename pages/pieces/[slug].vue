@@ -75,6 +75,7 @@ const mdcComponents = {
   'brownian-motion': defineAsyncComponent(() => import('~/components/pieces/brownian-motion.vue')),
   'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
   'first-passage': defineAsyncComponent(() => import('~/components/pieces/first-passage.vue')),
+  'beta-binomial-update': defineAsyncComponent(() => import('~/components/pieces/beta-binomial-update.vue')),
 }
 </script>
 
@@ -120,6 +121,9 @@ const mdcComponents = {
           <template v-if="r.venue"
             >{{ ' ' }}<em v-if="r.kind === 'paper'">{{ r.venue }}</em
             ><span v-else>{{ r.venue }}</span
+            ><template v-if="r.volume"
+              >, {{ r.volume }}<template v-if="r.issue">({{ r.issue }})</template></template
+            ><template v-if="r.pages">, {{ r.pages }}</template
             >.</template
           >
           <template v-if="r.url"

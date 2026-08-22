@@ -8,6 +8,7 @@ const routes = [
   '/pieces/brownian-motion',
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
+  '/pieces/beta-binomial-update',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -47,12 +48,34 @@ test('piece links complete client-side navigation', async ({ page }) => {
   expect(errors).toEqual([])
 })
 
+test('the beta-binomial posterior updates as trials arrive', async ({ page }) => {
+  await page.goto('/pieces/beta-binomial-update')
+  const canvas = page.locator('canvas')
+  await expect(canvas).toBeVisible({ timeout: 15_000 })
+
+  const successes = page.getByText(/^\d+ \/ \d+$/)
+  await expect(successes).not.toHaveText('0 / 0', { timeout: 15_000 })
+
+  // The prior is worth alpha0 + beta0 trials, so moving a prior slider must
+  // move the reported figure without resampling the observation stream.
+  await page.getByLabel('Prior alpha, weight on successes').fill('10')
+  await expect(page.getByText(/12\.0 trials/)).toBeVisible()
+})
+
+test('paper references render with journal, volume, and pages', async ({ page }) => {
+  await page.goto('/pieces/beta-binomial-update')
+  await expect(
+    page.getByText('Diaconis, P. and Ylvisaker, D. (1979). Conjugate priors for exponential families.'),
+  ).toContainText('The Annals of Statistics, 7(2), 269-281.')
+})
+
 test('@accessibility representative pages have no serious axe violations', async ({ page }) => {
   for (const route of [
     '/',
     '/pieces/brownian-motion',
     '/pieces/ornstein-uhlenbeck',
     '/pieces/first-passage',
+    '/pieces/beta-binomial-update',
     '/about',
   ]) {
     await page.goto(route)
