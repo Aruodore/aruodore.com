@@ -180,7 +180,7 @@ onBeforeUnmount(() => {
         <dl class="mt-6 space-y-3 border-t border-rule pt-4 text-xs">
           <div class="flex justify-between gap-3">
             <dt class="text-muted">Successes</dt>
-            <dd class="font-mono text-observed tnum">{{ successes }} / {{ trials }}</dd>
+            <dd class="font-mono text-ink tnum">{{ successes }} / {{ trials }}</dd>
           </div>
           <div class="flex justify-between gap-3">
             <dt class="text-muted">Posterior mean</dt>

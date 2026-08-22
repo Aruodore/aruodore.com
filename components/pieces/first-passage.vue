@@ -167,7 +167,7 @@ onBeforeUnmount(() => {
           </div>
           <div class="flex justify-between gap-3">
             <dt class="text-muted">Empirical</dt>
-            <dd class="font-mono text-observed tnum">{{ (100 * empiricalCdf).toFixed(1) }}%</dd>
+            <dd class="font-mono text-ink tnum">{{ (100 * empiricalCdf).toFixed(1) }}%</dd>
           </div>
           <div class="flex justify-between gap-3">
             <dt class="text-muted">Theoretical</dt>
