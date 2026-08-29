@@ -84,7 +84,7 @@ where $\Phi$ is the standard normal cumulative distribution function. Differenti
 
 $$
 \begin{aligned}
-f_{\tau_a}(t)
+f_a(t)
 &=\frac{a}{\sigma\sqrt{2\pi t^3}}
 \exp\!\left(-\frac{a^2}{2\sigma^2t}\right), \\
 &\hspace{8em} t>0.

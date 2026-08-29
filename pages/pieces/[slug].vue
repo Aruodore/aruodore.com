@@ -76,6 +76,7 @@ const mdcComponents = {
   'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
   'first-passage': defineAsyncComponent(() => import('~/components/pieces/first-passage.vue')),
   'beta-binomial-update': defineAsyncComponent(() => import('~/components/pieces/beta-binomial-update.vue')),
+  'brownian-bridge': defineAsyncComponent(() => import('~/components/pieces/brownian-bridge.vue')),
 }
 </script>
 

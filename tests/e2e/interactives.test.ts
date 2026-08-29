@@ -54,3 +54,17 @@ test.describe('3D interactives', () => {
     await expect(handle).toHaveAttribute('aria-expanded', 'true')
   })
 })
+
+test.describe('2D interactives', () => {
+  test('Brownian bridge controls update and replay conditioning', async ({ page }) => {
+    await page.goto('/pieces/brownian-bridge')
+    const canvas = page.getByRole('img', { name: /Paired navy Brownian bridge paths/ })
+    await expect(canvas).toBeVisible({ timeout: 15_000 })
+
+    await page.getByLabel('Terminal endpoint b').fill('1.25')
+    await expect(page.getByText('1.25', { exact: true })).toBeVisible()
+    await page.getByRole('button', { name: 'Replay conditioning' }).click()
+    await page.getByRole('button', { name: 'New paths' }).click()
+    await expect(canvas).toBeVisible()
+  })
+})

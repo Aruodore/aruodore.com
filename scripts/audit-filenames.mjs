@@ -12,9 +12,11 @@ const ignoredDirectories = new Set([
   'playwright-report',
   'test-results',
   '.lighthouseci',
+  '.vercel',
 ])
 const exactExceptions = new Set([
   '.prettierrc.json',
+  '.env.local',
   'CITATION.cff',
   'CLAUDE.md',
   'LICENSE',

@@ -9,6 +9,7 @@ const routes = [
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
   '/pieces/beta-binomial-update',
+  '/pieces/brownian-bridge',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -76,6 +77,7 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/ornstein-uhlenbeck',
     '/pieces/first-passage',
     '/pieces/beta-binomial-update',
+    '/pieces/brownian-bridge',
     '/about',
   ]) {
     await page.goto(route)
