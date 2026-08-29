@@ -10,6 +10,7 @@ const routes = [
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
   '/pieces/beta-binomial-update',
+  '/pieces/brownian-bridge',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -23,6 +24,17 @@ for (const route of routes) {
     const html = await readFile(path, 'utf8')
     for (const required of ['<title>', 'name="description"', 'rel="canonical"']) {
       if (!html.includes(required)) failures.push(`${route}: missing ${required}`)
+    }
+    if (route === '/pieces/brownian-bridge') {
+      for (const required of [
+        'property="og:image" content="https://aruodore.com/pieces/brownian-bridge/social-card.png"',
+        'property="og:image:width" content="1200"',
+        'property="og:image:height" content="630"',
+        'name="twitter:card" content="summary_large_image"',
+        'name="twitter:image" content="https://aruodore.com/pieces/brownian-bridge/social-card.png"',
+      ]) {
+        if (!html.includes(required)) failures.push(`${route}: missing social metadata ${required}`)
+      }
     }
     if (/<(?:brownian-motion|ornstein-uhlenbeck|first-passage|beta-binomial-update)(?:\s|>)/.test(html))
       failures.push(`${route}: unresolved custom element`)
