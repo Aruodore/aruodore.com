@@ -15,10 +15,6 @@ if (!piece.value) {
   throw createError({ statusCode: 404, statusMessage: 'Piece not found' })
 }
 
-const socialImage = computed(() => piece.value!.social_image || piece.value!.preview_image)
-const socialImageUrl = computed(() => (socialImage.value ? `${siteUrl}${socialImage.value}` : undefined))
-const hasDedicatedSocialImage = computed(() => Boolean(piece.value!.social_image))
-
 const jsonLd = computed(() => ({
   '@context': 'https://schema.org',
   '@type': ['Article', 'LearningResource'],
@@ -31,7 +27,7 @@ const jsonLd = computed(() => ({
   datePublished: piece.value!.published,
   dateModified: piece.value!.modified,
   version: piece.value!.version,
-  image: socialImageUrl.value,
+  image: piece.value!.preview_image ? `${siteUrl}${piece.value!.preview_image}` : undefined,
   keywords: piece.value!.math_topics,
   learningResourceType: 'Interactive simulation',
   interactivityType: 'active',
@@ -61,31 +57,12 @@ useHead(() => ({
     { property: 'og:title', content: piece.value!.citation_title },
     { property: 'og:description', content: piece.value!.summary },
     { property: 'og:url', content: piece.value!.canonical_url },
-    ...(socialImageUrl.value
-      ? [
-          { property: 'og:image', content: socialImageUrl.value },
-          { property: 'og:image:secure_url', content: socialImageUrl.value },
-          ...(hasDedicatedSocialImage.value
-            ? [
-                { property: 'og:image:type', content: 'image/png' },
-                { property: 'og:image:width', content: '1200' },
-                { property: 'og:image:height', content: '630' },
-              ]
-            : []),
-          { property: 'og:image:alt', content: `${piece.value!.title} interactive visualization` },
-        ]
+    ...(piece.value!.preview_image
+      ? [{ property: 'og:image', content: `${siteUrl}${piece.value!.preview_image}` }]
       : []),
     { property: 'article:published_time', content: piece.value!.published },
     { property: 'article:modified_time', content: piece.value!.modified },
     { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: piece.value!.citation_title },
-    { name: 'twitter:description', content: piece.value!.summary },
-    ...(socialImageUrl.value
-      ? [
-          { name: 'twitter:image', content: socialImageUrl.value },
-          { name: 'twitter:image:alt', content: `${piece.value!.title} interactive visualization` },
-        ]
-      : []),
   ],
   script: [{ type: 'application/ld+json', innerHTML: JSON.stringify(jsonLd.value) }],
 }))

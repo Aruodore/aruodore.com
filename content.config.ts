@@ -48,7 +48,6 @@ export default defineContentConfig({
         references: z.array(referenceSchema).default([]),
         preview_video: z.string().optional(),
         preview_image: z.string().optional(),
-        social_image: z.string().optional(),
         source_url: z.string().url().optional(),
         source_file_url: z.string().url().optional(),
         doi: z.string().optional(),

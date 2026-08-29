@@ -44,8 +44,7 @@ references:
     venue: Giornale dell'Istituto Italiano degli Attuari
     volume: '4'
     pages: 83-91
-preview_image: /pieces/brownian-bridge/preview.svg
-social_image: /pieces/brownian-bridge/social-card.png
+preview_image: /pieces/brownian-bridge/preview.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/brownian-bridge/simulation.ts
 downloads:
