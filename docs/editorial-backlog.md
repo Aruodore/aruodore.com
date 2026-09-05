@@ -1,19 +1,18 @@
 # Editorial backlog
 
-The next deep interactives after Beta-Binomial Update, in recommended order.
+Deep interactives that are planned but not yet built, in recommended order.
 
-## 1. Brownian Bridge
+Nothing is currently queued. The two entries this file held have shipped: Brownian Bridge on
+2026-08-29 and Metropolis-Hastings on 2026-09-05.
 
-Show Brownian paths conditioned to begin and end at selected values. Let the visitor move the endpoint and compare unconditional Brownian paths with bridge paths whose uncertainty narrows to zero at the terminal time.
+## Candidates
 
-Central ideas: Gaussian conditioning, pinned stochastic processes, the covariance $\min(s,t)-st/T$, and connections to goodness-of-fit statistics.
+Not committed to, and listed only so the next planning session starts from something.
 
-Use a two-dimensional space-time plot rather than another particle cloud. Keep the first version to fixed endpoints and a fixed terminal time.
-
-## 2. Metropolis-Hastings
-
-Show a Markov chain exploring a difficult one-dimensional target distribution. Pair the moving chain with a trace plot and a growing empirical density. Controls change proposal scale so the visitor can see the tradeoff between rejected moves and slow local exploration.
-
-Central ideas: detailed balance, acceptance probability, autocorrelation, effective sample size, and convergence diagnostics.
-
-Begin with a fixed bimodal target and a Gaussian random-walk proposal. Adaptive proposals, multiple chains, and higher dimensions should be later extensions.
+- **Gibbs sampling** on a correlated bivariate normal. Extends the Metropolis piece to a second
+  dimension and to conditional rather than joint proposals, and shows how correlation between
+  coordinates slows a sampler that can only move along axes.
+- **The bootstrap.** A resampling counterpart to the Bayesian pieces, and the natural place to
+  put sampling distributions next to posterior distributions.
+- **Gaussian process regression.** The first piece where the posterior is over functions rather
+  than parameters.

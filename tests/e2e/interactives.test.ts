@@ -56,6 +56,45 @@ test.describe('3D interactives', () => {
 })
 
 test.describe('2D interactives', () => {
+  test('Metropolis chain reports diagnostics and restarts on a new proposal width', async ({ page }) => {
+    await page.goto('/pieces/metropolis-hastings')
+    const canvas = page.getByRole('img', { name: /empirical histogram of Metropolis draws/ })
+    await expect(canvas).toBeVisible({ timeout: 15_000 })
+
+    const drawCount = page.getByText(/^n = \d+/)
+    await expect(drawCount).not.toHaveText('n = 0', { timeout: 15_000 })
+
+    await page.getByLabel('Proposal standard deviation sigma').fill('2.5')
+    await expect(page.getByText('2.50', { exact: true })).toBeVisible()
+    await page.getByRole('button', { name: 'Restart chain' }).click()
+    await page.getByRole('button', { name: 'New seed' }).click()
+    await expect(canvas).toBeVisible()
+  })
+
+  test('Metropolis chain stays usable at the narrowest supported width', async ({ page }) => {
+    // 20rem is the body min-width, so this is the narrowest layout the site
+    // supports; the piece falls back to short panel captions below 620px.
+    await page.setViewportSize({ width: 320, height: 653 })
+    await page.goto('/pieces/metropolis-hastings')
+    const figure = page.locator('figure').first()
+    await expect(figure).toBeVisible({ timeout: 15_000 })
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth),
+    ).toBe(true)
+
+    // The chain is idle until the figure is on screen, then advances.
+    const drawn = page.getByText(/^n = /)
+    await expect(drawn).toHaveText('n = 0')
+    await figure.scrollIntoViewIfNeeded()
+    await expect(drawn).not.toHaveText('n = 0', { timeout: 15_000 })
+
+    for (const name of ['Restart chain', 'New seed']) {
+      const button = page.getByRole('button', { name })
+      await expect(button).toBeVisible()
+      expect((await button.boundingBox())!.height).toBeGreaterThanOrEqual(44)
+    }
+  })
+
   test('Brownian bridge controls update and replay conditioning', async ({ page }) => {
     await page.goto('/pieces/brownian-bridge')
     const canvas = page.getByRole('img', { name: /Paired navy Brownian bridge paths/ })

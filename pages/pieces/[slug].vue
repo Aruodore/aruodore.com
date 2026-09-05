@@ -77,6 +77,7 @@ const mdcComponents = {
   'first-passage': defineAsyncComponent(() => import('~/components/pieces/first-passage.vue')),
   'beta-binomial-update': defineAsyncComponent(() => import('~/components/pieces/beta-binomial-update.vue')),
   'brownian-bridge': defineAsyncComponent(() => import('~/components/pieces/brownian-bridge.vue')),
+  'metropolis-hastings': defineAsyncComponent(() => import('~/components/pieces/metropolis-hastings.vue')),
 }
 </script>
 
