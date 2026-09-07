@@ -17,11 +17,20 @@ const routes = [
   '/notes/on-the-square-root-of-time',
 ]
 
+/* Firefox reports this while it is still building the MathML box tree, and
+ * only under load. The rendered document is checked for well-formed MathML
+ * below, which is the property the warning gestures at, so the transient
+ * message itself is not treated as a page error. */
+const TRANSIENT_MATHML_WARNING = /Invalid markup: Incorrect number of children/
+
+/* Arity required by the MathML spec for the elements KaTeX emits. */
+const MATHML_ARITY = { msub: 2, msup: 2, msubsup: 3, mfrac: 2, mroot: 2, munder: 2, mover: 2, munderover: 3 }
+
 for (const route of routes) {
   test(`${route} loads cleanly with metadata and no overflow`, async ({ page }) => {
     const errors: string[] = []
     page.on('console', (message) => {
-      if (message.type() === 'error') errors.push(message.text())
+      if (message.type() === 'error' && !TRANSIENT_MATHML_WARNING.test(message.text())) errors.push(message.text())
     })
     page.on('pageerror', (error) => errors.push(error.message))
     const response = await page.goto(route)
@@ -31,6 +40,19 @@ for (const route of routes) {
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth),
     ).toBe(true)
+    // Screen readers depend on this markup, so assert the rendered tree is
+    // well formed rather than only that nothing was logged.
+    expect(
+      await page.evaluate((arity) => {
+        const malformed: string[] = []
+        for (const [tag, children] of Object.entries(arity)) {
+          for (const element of document.querySelectorAll(tag)) {
+            if (element.childElementCount !== children) malformed.push(`${tag} has ${element.childElementCount}`)
+          }
+        }
+        return malformed
+      }, MATHML_ARITY),
+    ).toEqual([])
     expect(errors).toEqual([])
   })
 }
@@ -72,6 +94,9 @@ test('paper references render with journal, volume, and pages', async ({ page })
 })
 
 test('@accessibility representative pages have no serious axe violations', async ({ page }) => {
+  // Eight navigations, each followed by a full axe pass over a page that
+  // mounts a simulation; the default timeout is not enough under load.
+  test.setTimeout(120_000)
   for (const route of [
     '/',
     '/pieces/brownian-motion',
