@@ -6,6 +6,8 @@ const paths = [
   '/pieces/ornstein-uhlenbeck',
   '/pieces/first-passage',
   '/pieces/beta-binomial-update',
+  '/pieces/brownian-bridge',
+  '/pieces/metropolis-hastings',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
