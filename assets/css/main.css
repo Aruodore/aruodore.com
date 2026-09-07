@@ -67,9 +67,11 @@
     overflow-x: clip;
   }
 
+  /* No min-width: with `clip` above, a floor wider than the viewport would
+     put the overhang permanently out of reach rather than merely off-grid.
+     The layout is fluid well below the narrowest phone. */
   body {
     background: var(--color-bg);
-    min-width: 20rem;
     line-height: 1.65;
   }
 

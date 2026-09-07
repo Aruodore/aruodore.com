@@ -5,8 +5,9 @@
  *
  *   pi(x) = sum_j w_j N(x; mu_j, sigma_j^2),   sum_j w_j = 1,
  *
- * which is bimodal: the two modes are separated by a region of low
- * density that a local proposal crosses only rarely.
+ * which is bimodal. The two modes are separated by a region of lower
+ * density; a proposal of moderate width crosses it regularly, while a
+ * small one can fail to reach the second mode at all.
  *
  * Given the current state x and a symmetric random-walk proposal
  * y = x + sigma Z with Z ~ N(0,1), the Metropolis acceptance
@@ -201,4 +202,15 @@ export function binIndex(value: number, min: number, max: number, bins: number):
 export function histogramDensity(counts: readonly number[], total: number, binWidth: number): number[] {
   if (total <= 0 || binWidth <= 0) return counts.map(() => 0)
   return counts.map((count) => count / (total * binWidth))
+}
+
+/* Pick the first label that fits the width available to it, or nothing when
+ * even the shortest does not. `measure` is supplied by the caller so the
+ * choice is made with the font the canvas will actually draw with, rather
+ * than guessed from a viewport breakpoint. */
+export function fitLabel(candidates: readonly string[], available: number, measure: (text: string) => number): string {
+  for (const text of candidates) {
+    if (text === '' || measure(text) <= available) return text
+  }
+  return ''
 }

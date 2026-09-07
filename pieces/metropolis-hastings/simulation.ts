@@ -19,6 +19,7 @@
 import {
   binIndex,
   clampMetropolisHastingsParameters,
+  fitLabel,
   effectiveSampleSize,
   autocorrelation,
   histogramDensity,
@@ -51,9 +52,8 @@ const SCALE_RESPONSE = 4
 const STATS_INTERVAL = 320
 const MAX_AUTOCORRELATION_LAG = 120
 const PROPOSAL_BUMP_FRACTION = 0.45
-// Below this canvas width the two panel captions would collide, so both
-// panels fall back to short labels.
-const NARROW_WIDTH = 620
+// Gap kept between a panel caption and the panel beside it.
+const CAPTION_PADDING = 10
 const CHAIN_START = -3.4
 
 const BG = '#FAFAF7'
@@ -222,7 +222,7 @@ export function mountMetropolisHastings(
   }
 
   function drawDensityPanel(densities: readonly number[]) {
-    const { plotTop, plotBottom, densityLeft, densityRight, yAt } = panels()
+    const { plotTop, plotBottom, densityLeft, densityRight, traceLeft, yAt } = panels()
     const panelWidth = densityRight - densityLeft
     /* Density is drawn leftward from a baseline at the panel's right
      * edge, so the state axis runs vertically and matches the trace. */
@@ -277,14 +277,19 @@ export function mountMetropolisHastings(
     context.stroke()
     context.setLineDash([])
 
-    const narrow = cssWidth < NARROW_WIDTH
+    /* Captions are chosen by measurement rather than by a viewport
+     * breakpoint, so they never run into the panel beside them however
+     * narrow the canvas gets. */
+    const available = traceLeft - densityLeft - CAPTION_PADDING
+    const measure = (text: string) => context.measureText(text).width
     context.fillStyle = INK
     context.font = 'italic 14px STIX Two Text, serif'
     context.textAlign = 'left'
-    context.fillText(narrow ? 'Target' : 'Target and draws', densityLeft, 22)
+    context.fillText(fitLabel(['Target and draws', 'Target'], available, measure), densityLeft, 22)
     context.fillStyle = MUTED
     context.font = '11px JetBrains Mono, monospace'
-    context.fillText(narrow ? 'π(x) · draws' : 'π(x) · empirical · proposal (scaled)', densityLeft, 36)
+    const subtitle = fitLabel(['π(x) · empirical · proposal (scaled)', 'π(x) · draws', 'π(x)', ''], available, measure)
+    context.fillText(subtitle, densityLeft, 36)
   }
 
   function drawTracePanel() {
@@ -350,8 +355,9 @@ export function mountMetropolisHastings(
     context.fillText('Trace', traceLeft, 22)
     context.fillStyle = MUTED
     context.font = '11px JetBrains Mono, monospace'
+    const measure = (text: string) => context.measureText(text).width
     context.fillText(
-      cssWidth < NARROW_WIDTH ? `last ${TRACE_WINDOW}` : `most recent ${TRACE_WINDOW} draws`,
+      fitLabel([`most recent ${TRACE_WINDOW} draws`, `last ${TRACE_WINDOW}`, ''], width, measure),
       traceLeft,
       36,
     )

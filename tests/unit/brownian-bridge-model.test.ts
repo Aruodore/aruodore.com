@@ -5,6 +5,7 @@ import {
   bridgeStandardDeviation,
   clampBrownianBridgeParameters,
   conditionBrownianPath,
+  fitLabel,
 } from '../../pieces/brownian-bridge/model'
 
 describe('brownian bridge model', () => {
@@ -26,5 +27,15 @@ describe('brownian bridge model', () => {
       endpoint: 2,
       sigma: 0.35,
     })
+  })
+})
+
+describe('caption fitting', () => {
+  const measure = (text: string) => text.length * 6
+
+  it('shortens a panel caption instead of running into the next panel', () => {
+    expect(fitLabel(['Brownian motion', 'Motion'], 120, measure)).toBe('Brownian motion')
+    expect(fitLabel(['Brownian motion', 'Motion'], 60, measure)).toBe('Motion')
+    expect(fitLabel(['no terminal condition', 'unconditioned', ''], 20, measure)).toBe('')
   })
 })

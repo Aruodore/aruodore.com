@@ -12,6 +12,7 @@ import {
   bridgeStandardDeviation,
   clampBrownianBridgeParameters,
   conditionBrownianPath,
+  fitLabel,
   type BrownianBridgeParameters,
 } from './model'
 
@@ -109,7 +110,7 @@ export function mountBrownianBridge(canvas: HTMLCanvasElement, opts: BrownianBri
   function drawPanel(
     left: number,
     right: number,
-    title: string,
+    titles: readonly string[],
     color: string,
     paths: readonly (readonly number[])[],
     conditioned: boolean,
@@ -131,13 +132,17 @@ export function mountBrownianBridge(canvas: HTMLCanvasElement, opts: BrownianBri
     }
     context.stroke()
 
+    /* Captions are chosen by measurement, so a narrow canvas shortens them
+     * instead of running one panel's caption into the next. */
+    const measure = (text: string) => context.measureText(text).width
     context.fillStyle = INK
     context.font = 'italic 15px STIX Two Text, serif'
     context.textAlign = 'left'
-    context.fillText(title, left, 24)
+    context.fillText(fitLabel(titles, width, measure), left, 24)
     context.fillStyle = MUTED
     context.font = '11px JetBrains Mono, monospace'
-    context.fillText(conditioned ? 'given X₁ = b' : 'no terminal condition', left, 42)
+    const subtitles = conditioned ? ['given X₁ = b', ''] : ['no terminal condition', 'unconditioned', '']
+    context.fillText(fitLabel(subtitles, width, measure), left, 42)
     context.textAlign = 'center'
     for (const fraction of [0, 0.5, 1]) context.fillText(fraction.toFixed(1), left + fraction * width, bottom + 18)
 
@@ -205,8 +210,8 @@ export function mountBrownianBridge(canvas: HTMLCanvasElement, opts: BrownianBri
         return unconditioned + conditioningProgress * ((conditioned[index] ?? unconditioned) - unconditioned)
       })
     })
-    drawPanel(leftA, rightA, 'Brownian motion', PRIOR, unconditional, false, yAt)
-    drawPanel(leftB, rightB, 'Brownian bridge', POSTERIOR, bridges, true, yAt)
+    drawPanel(leftA, rightA, ['Brownian motion', 'Motion'], PRIOR, unconditional, false, yAt)
+    drawPanel(leftB, rightB, ['Brownian bridge', 'Bridge'], POSTERIOR, bridges, true, yAt)
     context.fillStyle = MUTED
     context.font = '11px JetBrains Mono, monospace'
     context.textAlign = 'left'

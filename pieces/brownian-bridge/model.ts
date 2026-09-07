@@ -72,3 +72,14 @@ export function conditionBrownianPath(
     return start + fraction * (endpoint - start) + sigma * (innovation - fraction * finalInnovation)
   })
 }
+
+/* Pick the first label that fits the width available to it, or nothing when
+ * even the shortest does not. `measure` is supplied by the caller so the
+ * choice is made with the font the canvas will actually draw with, rather
+ * than guessed from a viewport breakpoint. */
+export function fitLabel(candidates: readonly string[], available: number, measure: (text: string) => number): string {
+  for (const text of candidates) {
+    if (text === '' || measure(text) <= available) return text
+  }
+  return ''
+}

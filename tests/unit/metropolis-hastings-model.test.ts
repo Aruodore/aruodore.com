@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   acceptanceProbability,
+  fitLabel,
   autocorrelation,
   binIndex,
   clampMetropolisHastingsParameters,
@@ -167,5 +168,25 @@ describe('histogram binning', () => {
     const densities = histogramDensity(counts, 24, 0.5)
     expect(densities.reduce((total, value) => total + value * 0.5, 0)).toBeCloseTo(1)
     expect(histogramDensity(counts, 0, 0.5)).toEqual([0, 0, 0, 0])
+  })
+})
+
+describe('caption fitting', () => {
+  // Stand-in for canvas text measurement: six pixels per character.
+  const measure = (text: string) => text.length * 6
+
+  it('keeps the fullest label that fits', () => {
+    expect(fitLabel(['a full caption', 'short', ''], 200, measure)).toBe('a full caption')
+    expect(fitLabel(['a full caption', 'short', ''], 40, measure)).toBe('short')
+  })
+
+  it('falls back to nothing rather than overflowing', () => {
+    expect(fitLabel(['a full caption', 'short', ''], 5, measure)).toBe('')
+    expect(fitLabel(['a full caption', 'short'], 5, measure)).toBe('')
+    expect(fitLabel([], 100, measure)).toBe('')
+  })
+
+  it('treats an empty candidate as always fitting, so it can end a list', () => {
+    expect(fitLabel(['', 'short'], 0, measure)).toBe('')
   })
 })
