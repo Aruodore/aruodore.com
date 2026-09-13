@@ -107,7 +107,7 @@ onBeforeUnmount(() => {
           v-show="started && !failed"
           ref="canvas"
           role="img"
-          aria-label="A Gibbs chain moving horizontally and vertically through a correlated bivariate normal target, with live traces for x and y."
+          aria-label="Gibbs sampler moving one coordinate at a time through a correlated bivariate normal target, with live traces for x and y."
           class="absolute inset-0 h-full w-full"
         />
         <button
