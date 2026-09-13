@@ -46,6 +46,7 @@ references:
     year: 1992
     venue: Academic Press
 preview_image: /pieces/ornstein-uhlenbeck/preview.png
+social_image: /pieces/ornstein-uhlenbeck/social-card.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/ornstein-uhlenbeck/simulation.ts
 downloads:

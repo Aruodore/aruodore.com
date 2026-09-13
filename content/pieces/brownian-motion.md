@@ -58,6 +58,7 @@ references:
     venue: International Conference on Learning Representations
     url: https://arxiv.org/abs/2011.13456
 preview_image: /pieces/brownian-motion/preview.png
+social_image: /pieces/brownian-motion/social-card.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/brownian-motion/simulation.ts
 downloads:

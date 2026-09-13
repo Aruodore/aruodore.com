@@ -59,6 +59,7 @@ references:
     issue: '2'
     pages: 119-126
 preview_image: /pieces/beta-binomial-update/preview.svg
+social_image: /pieces/beta-binomial-update/social-card.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/beta-binomial-update/simulation.ts
 downloads:

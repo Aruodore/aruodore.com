@@ -44,6 +44,7 @@ references:
     year: 2010
     venue: Cambridge University Press
 preview_image: /pieces/first-passage/preview.svg
+social_image: /pieces/first-passage/social-card.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/first-passage/simulation.ts
 downloads:

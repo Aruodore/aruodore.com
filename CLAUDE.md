@@ -221,6 +221,7 @@ references: # at least 2–3 entries for most pieces
   [{ author: string, title: string, year: number, url?: string }]
 preview_video: path # optional, looping clip on home/index
 preview_image: path # optional, still fallback
+social_image: path # required 1200x630 PNG social card; SVG is forbidden
 source_url: url # link to GitHub source
 ```
 
@@ -407,6 +408,7 @@ A piece is not "done" until **all** of the following are true. If shipping a pie
 - [ ] Writeup follows the four-question structure (what / math / why interesting / how built).
 - [ ] At least two references in the `references` array, formatted per §10.1.
 - [ ] `preview_image` exists at `public/pieces/[slug]/`. `preview_video` exists if the piece is animated.
+- [ ] `social_image` exists at `public/pieces/[slug]/`, is exactly 1200×630, and uses PNG. SVG social cards are forbidden.
 - [ ] The interactive runs at a stable frame rate (target **60 fps**) on a recent laptop in current Chrome and Firefox.
 - [ ] **Cleanup verified.** Navigate to the piece, away, and back **at least three times.** No memory growth, no rAF leak. Check via DevTools Performance.
 - [ ] Math equations render correctly in **both** `npm run dev` and `npm run generate` output. KaTeX SSR rendering occasionally drifts from client rendering; verify both.
