@@ -9,6 +9,7 @@ describe('content component resolution', () => {
     ['content/pieces/beta-binomial-update.md', '::beta-binomial-update'],
     ['content/pieces/brownian-bridge.md', '::brownian-bridge'],
     ['content/pieces/metropolis-hastings.md', '::metropolis-hastings'],
+    ['content/pieces/gibbs-sampling.md', '::gibbs-sampling'],
   ])('%s uses a registered kebab-case MDC component', (contentPath, embed) => {
     const content = readFileSync(contentPath, 'utf8')
     const page = readFileSync('pages/pieces/[slug].vue', 'utf8')

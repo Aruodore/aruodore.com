@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title desc">
+  <title id="title">Gibbs sampling on a correlated Gaussian target</title>
+  <desc id="desc">Elliptical target contours with an axis-aligned sampling path and two coordinate traces.</desc>
+  <rect width="900" height="600" fill="#FAFAF7"/>
+  <g font-family="Georgia, serif" fill="#1A1A1A"><text x="52" y="32" font-size="18" font-style="italic">Gibbs path</text><text x="556" y="32" font-size="18" font-style="italic">Coordinate traces</text></g>
+  <g font-family="monospace" fill="#6B6B66" font-size="12"><text x="52" y="50">target contours · one axis at a time</text><text x="556" y="50">most recent 360 sweeps</text></g>
+  <g stroke="#D8D8D2" fill="none"><rect x="52" y="70" width="450" height="450"/><path d="M277 70v450M52 295h450"/><rect x="556" y="70" width="310" height="442"/><path d="M556 180h310M556 291h310M556 401h310"/></g>
+  <g transform="translate(277 295) rotate(-45)" fill="none" stroke="#1E3A5F"><ellipse rx="184" ry="42" opacity=".35"/><ellipse rx="150" ry="34" opacity=".45"/><ellipse rx="115" ry="26" opacity=".58"/><ellipse rx="78" ry="18" opacity=".72"/><ellipse rx="42" ry="10" opacity=".9"/></g>
+  <path d="M106 453H142V421H180V390H207V370H245V329H273V306H298V273H331V240H360V218H386V185H418V156H455" fill="none" stroke="#C77B3C" stroke-width="2" opacity=".75"/>
+  <path d="M418 185H463V139" fill="none" stroke="#4A7A6A" stroke-width="2" stroke-dasharray="7 5"/><circle cx="463" cy="139" r="5" fill="#C77B3C"/>
+  <g fill="none" stroke="#C77B3C" stroke-width="1.4"><path d="M556 181l8-36 8 42 8-27 8 8 8-54 8 35 8-24 8 40 8-22 8 12 8-48 8 26 8-18 8 43 8-20 8 9 8-37 8 27 8-8 8 31 8-46 8 24 8-13 8 36 8-19 8 7 8-28 8 16 8-4 8 23 8-34 8 18 8-8 8 26 8-14"/><path d="M556 398l8-32 8 38 8-22 8 5 8-46 8 30 8-19 8 34 8-17 8 8 8-39 8 23 8-14 8 36 8-16 8 6 8-30 8 22 8-5 8 26 8-38 8 20 8-9 8 30 8-15 8 4 8-24 8 13 8-2 8 19 8-29 8 15 8-5 8 21 8-10"/></g>
+  <g font-family="Georgia, serif" font-size="15" font-style="italic" fill="#6B6B66"><text x="565" y="88">x</text><text x="565" y="309">y</text></g>
+</svg>

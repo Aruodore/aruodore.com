@@ -8,6 +8,7 @@ const paths = [
   '/pieces/beta-binomial-update',
   '/pieces/brownian-bridge',
   '/pieces/metropolis-hastings',
+  '/pieces/gibbs-sampling',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

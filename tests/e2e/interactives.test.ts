@@ -95,6 +95,28 @@ test.describe('2D interactives', () => {
     }
   })
 
+  test('Gibbs sampler reports diagnostics and changes target correlation', async ({ page }) => {
+    await page.goto('/pieces/gibbs-sampling')
+    const canvas = page.getByRole('img', { name: /Gibbs sampler moving one coordinate/ })
+    await expect(canvas).toBeVisible({ timeout: 15_000 })
+
+    const sweepCount = page.getByText(/^n = \d+/)
+    await expect(sweepCount).not.toHaveText('n = 0', { timeout: 15_000 })
+    await page.getByLabel('Target correlation rho').fill('0.94')
+    await expect(page.getByText('0.94', { exact: true })).toBeVisible()
+    await page.getByRole('button', { name: 'New seed' }).click()
+    await expect(canvas).toBeVisible()
+
+    await page.setViewportSize({ width: 320, height: 653 })
+    await page.locator('figure').first().scrollIntoViewIfNeeded()
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth),
+    ).toBe(true)
+    for (const name of ['Restart chain', 'New seed']) {
+      expect((await page.getByRole('button', { name }).boundingBox())!.height).toBeGreaterThanOrEqual(44)
+    }
+  })
+
   test('Brownian bridge controls update and replay conditioning', async ({ page }) => {
     await page.goto('/pieces/brownian-bridge')
     const canvas = page.getByRole('img', { name: /Paired navy Brownian bridge paths/ })
