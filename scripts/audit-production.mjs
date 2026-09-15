@@ -50,6 +50,7 @@ async function inspectSocialCard(route, html) {
     const height = data.readUInt32BE(20)
     if (width !== 1200 || height !== 630)
       failures.push(`${route}: social image is ${width}x${height}, expected 1200x630`)
+    if (data.readUInt8(24) !== 8) failures.push(`${route}: social image must use 8-bit color depth`)
   } catch {
     failures.push(`${route}: social image missing from generated output`)
   }

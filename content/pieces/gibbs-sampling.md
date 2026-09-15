@@ -60,7 +60,7 @@ references:
     year: 2013
     venue: Chapman and Hall/CRC
 preview_image: /pieces/gibbs-sampling/preview.svg
-social_image: /pieces/gibbs-sampling/social-card.png
+social_image: /pieces/gibbs-sampling/social-card-v2.png
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/gibbs-sampling/simulation.ts
 downloads:
