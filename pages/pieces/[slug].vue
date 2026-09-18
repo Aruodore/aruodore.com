@@ -85,6 +85,7 @@ const mdcComponents = {
   'brownian-bridge': defineAsyncComponent(() => import('~/components/pieces/brownian-bridge.vue')),
   'metropolis-hastings': defineAsyncComponent(() => import('~/components/pieces/metropolis-hastings.vue')),
   'gibbs-sampling': defineAsyncComponent(() => import('~/components/pieces/gibbs-sampling.vue')),
+  'hamiltonian-monte-carlo': defineAsyncComponent(() => import('~/components/pieces/hamiltonian-monte-carlo.vue')),
 }
 </script>
 

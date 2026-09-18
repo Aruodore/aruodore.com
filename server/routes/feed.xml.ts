@@ -1,5 +1,12 @@
 const entries = [
   {
+    title: 'Hamiltonian Monte Carlo: Momentum, Geometry, and Long-Distance Proposals',
+    url: 'https://aruodore.com/pieces/hamiltonian-monte-carlo',
+    date: '2026-09-20T00:00:00Z',
+    summary:
+      'Hamiltonian dynamics turns gradients into long proposals that travel along a narrow Gaussian ridge without random-walk diffusion.',
+  },
+  {
     title: 'Gibbs Sampling: Conditional Draws, Correlation, and Slow Mixing',
     url: 'https://aruodore.com/pieces/gibbs-sampling',
     date: '2026-09-13T00:00:00Z',
@@ -65,5 +72,5 @@ export default defineEventHandler((event) => {
         `<entry><title>${escapeXml(entry.title)}</title><id>${entry.url}</id><link href="${entry.url}"/><updated>${entry.date}</updated><summary>${escapeXml(entry.summary)}</summary></entry>`,
     )
     .join('')
-  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-09-13T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
+  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-09-20T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
 })
