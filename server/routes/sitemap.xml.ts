@@ -10,6 +10,7 @@ const paths = [
   '/pieces/metropolis-hastings',
   '/pieces/gibbs-sampling',
   '/pieces/hamiltonian-monte-carlo',
+  '/pieces/bootstrap',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

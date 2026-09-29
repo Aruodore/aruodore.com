@@ -12,6 +12,8 @@ const routes = [
   '/pieces/brownian-bridge',
   '/pieces/metropolis-hastings',
   '/pieces/gibbs-sampling',
+  '/pieces/hamiltonian-monte-carlo',
+  '/pieces/bootstrap',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -87,6 +89,24 @@ test('the beta-binomial posterior updates as trials arrive', async ({ page }) =>
   await expect(page.getByText(/12\.0 trials/)).toBeVisible()
 })
 
+test('the bootstrap accumulates resamples and responds to sample size', async ({ page }) => {
+  await page.goto('/pieces/bootstrap')
+  const canvas = page.getByRole('img', { name: /Repeated samples drawn with replacement/ })
+  await expect(canvas).toBeVisible({ timeout: 15_000 })
+  const replicateCount = page.getByText('Replicates B').locator('..').locator('dd')
+  await expect(replicateCount).not.toHaveText('0', { timeout: 15_000 })
+  await page.getByRole('button', { name: 'Pause resampling' }).click()
+  const pausedAt = await replicateCount.textContent()
+  await page.waitForTimeout(500)
+  await expect(replicateCount).toHaveText(pausedAt!)
+  await page.getByRole('button', { name: 'Resume resampling' }).click()
+
+  await page.getByLabel('Observed sample size n').fill('32')
+  await expect(page.getByText('0 / 32', { exact: true })).toBeVisible()
+  await page.getByRole('button', { name: 'New sample' }).click()
+  await expect(canvas).toBeVisible()
+})
+
 test('paper references render with journal, volume, and pages', async ({ page }) => {
   await page.goto('/pieces/beta-binomial-update')
   await expect(
@@ -107,6 +127,7 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/brownian-bridge',
     '/pieces/metropolis-hastings',
     '/pieces/gibbs-sampling',
+    '/pieces/bootstrap',
     '/about',
   ]) {
     await page.goto(route)

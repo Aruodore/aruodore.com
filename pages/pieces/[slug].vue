@@ -86,6 +86,7 @@ const mdcComponents = {
   'metropolis-hastings': defineAsyncComponent(() => import('~/components/pieces/metropolis-hastings.vue')),
   'gibbs-sampling': defineAsyncComponent(() => import('~/components/pieces/gibbs-sampling.vue')),
   'hamiltonian-monte-carlo': defineAsyncComponent(() => import('~/components/pieces/hamiltonian-monte-carlo.vue')),
+  bootstrap: defineAsyncComponent(() => import('~/components/pieces/bootstrap.vue')),
 }
 </script>
 
