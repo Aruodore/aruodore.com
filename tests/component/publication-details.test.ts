@@ -13,14 +13,26 @@ const props = {
 }
 
 describe('publication-details', () => {
-  it('renders citation metadata, downloads BibTeX, and copies the citation', async () => {
+  it('keeps citation details collapsed until requested, then supports download and copy', async () => {
     const writeText = vi.fn().mockResolvedValue(undefined)
     Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { writeText } })
     const wrapper = mount(PublicationDetails, { props })
-    expect(wrapper.text()).toContain('How to cite this piece')
+    const trigger = wrapper.get('.citation-trigger')
+    expect(trigger.text()).toContain('Cite this piece')
+    expect(trigger.attributes('aria-expanded')).toBe('false')
+    expect(wrapper.get('#citation-panel').attributes('aria-hidden')).toBe('true')
+    expect(wrapper.get('.citation-toggle').attributes('aria-hidden')).toBe('true')
+
+    await trigger.trigger('click')
+    expect(trigger.attributes('aria-expanded')).toBe('true')
+    expect(wrapper.get('#citation-panel').attributes('aria-hidden')).toBe('false')
     expect(wrapper.get('a[download]').attributes('href')).toContain('data:text/plain')
-    await wrapper.get('button').trigger('click')
+    await wrapper.get('.copy-citation').trigger('click')
     expect(writeText).toHaveBeenCalledWith(expect.stringContaining('Test Piece'))
-    expect(wrapper.get('button').text()).toBe('Copied')
+    expect(wrapper.get('.copy-citation').text()).toBe('Copied')
+
+    await trigger.trigger('click')
+    expect(trigger.attributes('aria-expanded')).toBe('false')
+    expect(wrapper.get('#citation-panel').attributes('aria-hidden')).toBe('true')
   })
 })
