@@ -36,7 +36,7 @@
     "@fontsource-variable/stix-two-text": "^5.3.0",
     "@nuxt/content": "^3.0.0",
     "@types/three": "^0.184.1",
-    "katex": "^0.16.11",
+    "katex": "^0.18.2",
     "nuxt": "^3.13.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
