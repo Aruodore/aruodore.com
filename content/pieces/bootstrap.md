@@ -88,7 +88,7 @@ $$
 After $B$ repetitions, the values $\bar X_1^*,\ldots,\bar X_B^*$ approximate the conditional distribution of the mean under the empirical model. Their standard deviation estimates the standard error of the original sample mean:
 
 $$
-\widehat{\operatorname{se}}_{\mathrm{boot}}(\bar X)
+\widehat{\mathrm{se}}_{\mathrm{boot}}(\bar X)
 =\left[\frac{1}{B-1}\sum_{b=1}^B
 \left(\bar X_b^*-\overline{\bar X^*}\right)^2\right]^{1/2}.
 $$
