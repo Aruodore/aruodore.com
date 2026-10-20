@@ -28,10 +28,7 @@ async function copyCitation() {
 </script>
 
 <template>
-  <section
-    class="publication-details min-w-0 max-w-full rule-top"
-    :class="{ 'is-open': isCitationOpen }"
-  >
+  <section class="publication-details min-w-0 max-w-full rule-top" :class="{ 'is-open': isCitationOpen }">
     <button
       id="citation-heading"
       type="button"
@@ -41,7 +38,9 @@ async function copyCitation() {
       @click="isCitationOpen = !isCitationOpen"
     >
       <span class="underline decoration-rule underline-offset-4">Cite this piece</span>
-      <span class="citation-toggle flex size-7 shrink-0 items-center justify-center border border-rule text-lg" aria-hidden="true"
+      <span
+        class="citation-toggle flex size-7 shrink-0 items-center justify-center border border-rule text-lg"
+        aria-hidden="true"
         >+</span
       >
     </button>
