@@ -87,6 +87,9 @@ const mdcComponents = {
   'gibbs-sampling': defineAsyncComponent(() => import('~/components/pieces/gibbs-sampling.vue')),
   'hamiltonian-monte-carlo': defineAsyncComponent(() => import('~/components/pieces/hamiltonian-monte-carlo.vue')),
   bootstrap: defineAsyncComponent(() => import('~/components/pieces/bootstrap.vue')),
+  'gaussian-process-regression': defineAsyncComponent(
+    () => import('~/components/pieces/gaussian-process-regression.vue'),
+  ),
 }
 </script>
 

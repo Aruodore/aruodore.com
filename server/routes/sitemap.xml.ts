@@ -11,6 +11,7 @@ const paths = [
   '/pieces/gibbs-sampling',
   '/pieces/hamiltonian-monte-carlo',
   '/pieces/bootstrap',
+  '/pieces/gaussian-process-regression',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

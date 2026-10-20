@@ -14,6 +14,7 @@ const routes = [
   '/pieces/gibbs-sampling',
   '/pieces/hamiltonian-monte-carlo',
   '/pieces/bootstrap',
+  '/pieces/gaussian-process-regression',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -107,6 +108,26 @@ test('the bootstrap accumulates resamples and responds to sample size', async ({
   await expect(canvas).toBeVisible()
 })
 
+test('gaussian process regression responds to data and hyperparameters', async ({ page }) => {
+  await page.goto('/pieces/gaussian-process-regression')
+  const canvas = page.getByRole('img', { name: /condition a teal Gaussian process prior/ })
+  await expect(canvas).toBeVisible({ timeout: 15_000 })
+  const count = page.getByText('Observations n', { exact: true }).locator('..').locator('dd')
+  await expect(count).toHaveText('6 / 30')
+  await page.getByRole('button', { name: 'Add observation' }).click()
+  await expect(count).toHaveText('7 / 30')
+
+  const box = await canvas.boundingBox()
+  await canvas.click({ position: { x: box!.width * 0.6, y: box!.height * 0.5 } })
+  await expect(count).toHaveText('8 / 30')
+
+  await page.getByRole('button', { name: 'Clear data' }).click()
+  await expect(count).toHaveText('0 / 30')
+  await expect(page.getByText('Mean posterior sd', { exact: true }).locator('..').locator('dd')).toHaveText('1.000')
+  await page.getByRole('button', { name: 'Restore initial data' }).click()
+  await expect(count).toHaveText('6 / 30')
+})
+
 test('paper references render with journal, volume, and pages', async ({ page }) => {
   await page.goto('/pieces/beta-binomial-update')
   await expect(
@@ -128,6 +149,7 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/metropolis-hastings',
     '/pieces/gibbs-sampling',
     '/pieces/bootstrap',
+    '/pieces/gaussian-process-regression',
     '/about',
   ]) {
     await page.goto(route)
