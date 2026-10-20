@@ -37,7 +37,7 @@
     "@nuxt/content": "^3.0.0",
     "@types/three": "^0.184.1",
     "katex": "^0.16.11",
-    "nuxt": "^3.13.0",
+    "nuxt": "^4.5.2",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "three": "^0.185.1",
