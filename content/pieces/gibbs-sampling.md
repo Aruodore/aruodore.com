@@ -61,6 +61,13 @@ references:
     venue: Chapman and Hall/CRC
 preview_image: /pieces/gibbs-sampling/preview.svg
 social_image: /pieces/gibbs-sampling/social-card-v2.png
+social_post:
+  x: |-
+    Gibbs sampling moves one variable at a time.
+
+    When two variables are closely linked, that simple approach can become surprisingly slow. Try it yourself:
+
+    https://aruodore.com/pieces/gibbs-sampling
 source_url: https://github.com/Aruodore/aruodore.com
 source_file_url: https://github.com/Aruodore/aruodore.com/blob/main/pieces/gibbs-sampling/simulation.ts
 downloads:

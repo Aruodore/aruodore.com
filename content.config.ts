@@ -25,6 +25,13 @@ const downloadSchema = z.object({
   description: z.string().optional(),
 })
 
+const socialPostSchema = z
+  .object({
+    x: z.string().max(280).optional(),
+    linkedin: z.string().max(3000).optional(),
+  })
+  .refine((post) => post.x || post.linkedin, 'Social post must opt into at least one platform')
+
 export default defineContentConfig({
   collections: {
     pieces: defineCollection({
@@ -49,6 +56,7 @@ export default defineContentConfig({
         preview_video: z.string().optional(),
         preview_image: z.string().optional(),
         social_image: z.string().regex(/\.png$/i, 'Social images must use PNG, never SVG'),
+        social_post: socialPostSchema.optional(),
         source_url: z.string().url().optional(),
         source_file_url: z.string().url().optional(),
         doi: z.string().optional(),

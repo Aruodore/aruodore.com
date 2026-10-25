@@ -222,6 +222,9 @@ references: # at least 2–3 entries for most pieces
 preview_video: path # optional, looping clip on home/index
 preview_image: path # optional, still fallback
 social_image: path # required 1200x630 8-bit PNG social card; SVG and 16-bit PNG are forbidden
+social_post: # optional; presence opts a platform into Postdeck publishing after release checks
+  x: copy # maximum 280 characters and must include canonical_url
+  linkedin: copy # optional; maximum 3000 characters and remains manual until Postdeck supports its API
 source_url: url # link to GitHub source
 ```
 
@@ -424,6 +427,9 @@ For deviations (§8.1), adapt items that don't apply (e.g. the 60 fps check does
 - `npm run dev`: local development on port 3000.
 - `npm run generate`: static export to `.output/public`.
 - `npm run typecheck`: strict TS check across the project.
+- `npm run social:check -- <slug>`: verify a piece's production URL and social card as platform crawlers see them.
+- `npm run social:publish -- <slug>`: after the release is committed, pushed, green in CI, and live, idempotently publish its opted-in social copy through local Postdeck.
+- `npm run social:install`: install the local user timer that checks opted-in pieces every five minutes. Run it only after the intended Postdeck account and X API channel are connected.
 - Deploy target is static (Cloudflare Pages or Vercel). Do not introduce runtime server requirements.
 
 ---
