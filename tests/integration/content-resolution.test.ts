@@ -12,6 +12,7 @@ describe('content component resolution', () => {
     ['content/pieces/gibbs-sampling.md', '::gibbs-sampling'],
     ['content/pieces/hamiltonian-monte-carlo.md', '::hamiltonian-monte-carlo'],
     ['content/pieces/gaussian-process-regression.md', '::gaussian-process-regression'],
+    ['content/pieces/kalman-filtering.md', '::kalman-filtering'],
   ])('%s uses a registered kebab-case MDC component', (contentPath, embed) => {
     const content = readFileSync(contentPath, 'utf8')
     const page = readFileSync('pages/pieces/[slug].vue', 'utf8')

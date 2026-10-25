@@ -15,6 +15,7 @@ const routes = [
   '/pieces/hamiltonian-monte-carlo',
   '/pieces/bootstrap',
   '/pieces/gaussian-process-regression',
+  '/pieces/kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -128,6 +129,26 @@ test('gaussian process regression responds to data and hyperparameters', async (
   await expect(count).toHaveText('6 / 30')
 })
 
+test('kalman filtering tracks, restarts, and toggles the occluder', async ({ page }) => {
+  await page.goto('/pieces/kalman-filtering')
+  const canvas = page.getByRole('img', { name: /A Kalman filter tracks a hidden object/ })
+  await expect(canvas).toBeVisible({ timeout: 15_000 })
+  const step = page.getByText('Step k', { exact: true }).locator('..').locator('dd')
+  await expect(async () => expect(Number(await step.textContent())).toBeGreaterThanOrEqual(64)).toPass()
+  const opening = Number(await step.textContent())
+  await expect(async () => expect(Number(await step.textContent())).toBeGreaterThan(opening)).toPass({
+    timeout: 10_000,
+  })
+
+  await page.getByRole('button', { name: 'Restart tracker' }).click()
+  await expect(async () => expect(Number(await step.textContent())).toBeLessThan(10)).toPass({ timeout: 5_000 })
+
+  const occluder = page.getByRole('button', { name: 'Occluder' })
+  await expect(occluder).toHaveAttribute('aria-pressed', 'true')
+  await occluder.click()
+  await expect(occluder).toHaveAttribute('aria-pressed', 'false')
+})
+
 test('paper references render with journal, volume, and pages', async ({ page }) => {
   await page.goto('/pieces/beta-binomial-update')
   await expect(
@@ -150,6 +171,7 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/gibbs-sampling',
     '/pieces/bootstrap',
     '/pieces/gaussian-process-regression',
+    '/pieces/kalman-filtering',
     '/about',
   ]) {
     await page.goto(route)

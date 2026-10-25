@@ -12,6 +12,7 @@ const paths = [
   '/pieces/hamiltonian-monte-carlo',
   '/pieces/bootstrap',
   '/pieces/gaussian-process-regression',
+  '/pieces/kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
