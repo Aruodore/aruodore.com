@@ -16,6 +16,7 @@ const routes = [
   '/pieces/hamiltonian-monte-carlo',
   '/pieces/bootstrap',
   '/pieces/gaussian-process-regression',
+  '/pieces/kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -68,7 +69,7 @@ for (const route of routes) {
     }
     if (/^\/pieces\/[^/]+$/.test(route)) await inspectSocialCard(route, html)
     if (
-      /<(?:brownian-motion|ornstein-uhlenbeck|first-passage|beta-binomial-update|brownian-bridge|metropolis-hastings|gibbs-sampling|hamiltonian-monte-carlo|bootstrap|gaussian-process-regression)(?:\s|>)/.test(
+      /<(?:brownian-motion|ornstein-uhlenbeck|first-passage|beta-binomial-update|brownian-bridge|metropolis-hastings|gibbs-sampling|hamiltonian-monte-carlo|bootstrap|gaussian-process-regression|kalman-filtering)(?:\s|>)/.test(
         html,
       )
     )

@@ -90,6 +90,7 @@ const mdcComponents = {
   'gaussian-process-regression': defineAsyncComponent(
     () => import('~/components/pieces/gaussian-process-regression.vue'),
   ),
+  'kalman-filtering': defineAsyncComponent(() => import('~/components/pieces/kalman-filtering.vue')),
 }
 </script>
 

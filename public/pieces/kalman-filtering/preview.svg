@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-labelledby="title description">
+  <title id="title">Kalman filter tracking a hidden object</title>
+  <desc id="description">A grey true path crosses a shaded occluder. Orange measurements stop at its edge, and the navy 95% position ellipse widens while the object is hidden.</desc>
+  <defs><clipPath id="world"><rect x="38.3" y="70" width="823.3" height="494"/></clipPath></defs>
+  <rect width="900" height="600" fill="#FAFAF7"/>
+  <rect x="38.3" y="70" width="823.3" height="494" fill="none" stroke="#D8D8D2"/>
+  <g clip-path="url(#world)">
+    <rect x="532.3" y="70" width="131.7" height="494" fill="#D8D8D2" fill-opacity="0.5"/>
+    <text x="598.2" y="86" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" fill="#6B6B66">occluder</text>
+    <path d="M450 233.3L464.1 225.9L478.1 218.8L492.1 212.1L506 205.9L519.8 200L533.5 194.6L546.9 189.6L560.2 185.2L573.3 181.2L586.1 177.8L598.6 174.9L610.9 172.6L622.8 170.8L634.3 169.6L645.5 168.9L656.3 168.8L666.7 169.3L676.6 170.4L686.1 172L695.1 174.1L703.6 176.9L711.6 180.1L719 183.9L725.9 188.2L732.3 193L738.1 198.2L743.3 204L747.9 210.1L751.9 216.7L755.3 223.6L758 230.9L760.2 238.6L761.7 246.5L762.6 254.7L762.9 263.2L762.5 271.8L761.5 280.7L759.8 289.7L757.6 298.7L754.7 307.9L751.2 317.1L747.1 326.2L742.3 335.4L737 344.5L731.1 353.4L724.7 362.3L717.7 370.9L710.1 379.4L702 387.6L693.4 395.5L684.3 403.2L674.8 410.5L664.8 417.4L654.3 424L643.4 430.1L632.2 435.8L620.6 441.1L608.6 445.9L596.3 450.2L583.7 453.9L570.9 457.2L557.7 459.9L544.4 462.1L530.9 463.7" fill="none" stroke="#6B6B66" stroke-opacity="0.8"/>
+    <path d="M437.1 211.9L463.2 225L481.4 245L480.4 248.5L492.2 223.9L503.1 212L513.7 207.2L524.3 202.4L534.9 197.6L545.5 192.8L556.1 188L566.7 183.2L577.3 178.4L587.9 173.6L598.5 168.8L609.1 164L619.7 159.2L659.8 178.8L673.3 165.5L690.5 146.3L698.6 153.8L711.7 157.9L724 165.4L728.1 164.8L736.3 164.4L735.9 165.3L753 166.5L747.4 166.8L752.6 172.8L751.9 190.1L756.2 201.5L753.3 206.8L756.2 225.6L759.2 234.3L764.5 248.7L771.9 259.9L765.2 256.1L768.3 270.4L765.1 272.4L770.5 283.4L760.3 293.5L750.7 304.8L751.1 322.1L748.3 317.7L740.2 329.1L741.1 344.9L739.7 358.6L729.8 371.7L717.4 385.5L703.2 410.7L693.5 416.4L679.7 419.1L678.2 411.4L670.6 411.1L663 417.5L655.3 423.9L647.6 430.3L640 436.7L632.3 443.1L624.6 449.4L617 455.8L609.3 462.2L601.7 468.6L594 475L528.5 494.7" fill="none" stroke="#1E3A5F" stroke-width="1.5" stroke-opacity="0.7"/>
+    <g fill="#C77B3C"><circle cx="735.5" cy="313.1" r="3" opacity="0.281"/><circle cx="756.8" cy="344.7" r="3" opacity="0.313"/><circle cx="747" cy="280.2" r="3" opacity="0.344"/><circle cx="730.2" cy="338.6" r="3" opacity="0.375"/><circle cx="748.6" cy="364.5" r="3" opacity="0.406"/><circle cx="741.9" cy="369.4" r="3" opacity="0.43799999999999994"/><circle cx="716.8" cy="379.5" r="3" opacity="0.469"/><circle cx="702.8" cy="393.5" r="3" opacity="0.5"/><circle cx="689" cy="447.4" r="3" opacity="0.531"/><circle cx="690.4" cy="396.3" r="3" opacity="0.563"/><circle cx="670.2" cy="394.2" r="3" opacity="0.594"/><circle cx="691.8" cy="363.8" r="3" opacity="0.625"/><circle cx="670.9" cy="390.1" r="3" opacity="0.6559999999999999"/><circle cx="523.8" cy="497.7" r="3" opacity="1"/></g>
+    <ellipse cx="586.3" cy="481.4" rx="126.9" ry="106.3" transform="rotate(-90 586.3 481.4)" fill="#4A7A6A" fill-opacity="0.1" stroke="#4A7A6A" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <ellipse cx="528.5" cy="494.7" rx="54.6" ry="29.1" transform="rotate(-90 528.5 494.7)" fill="#1E3A5F" fill-opacity="0.18" stroke="#1E3A5F" stroke-width="1.5"/>
+    <path d="M528.5 494.7L461.4 532.5M461.4 532.5L464.8 527.6M461.4 532.5L467.4 532.1" fill="none" stroke="#1E3A5F" stroke-width="1.5"/>
+    <circle cx="530.9" cy="463.7" r="5.5" fill="none" stroke="#1A1A1A" stroke-width="1.5"/>
+  </g>
+  <rect x="18" y="35" width="14" height="10" fill="#4A7A6A" fill-opacity="0.2" stroke="#4A7A6A" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <rect x="150" y="35" width="14" height="10" fill="#1E3A5F" fill-opacity="0.2" stroke="#1E3A5F" stroke-width="1.5"/>
+  <circle cx="289" cy="40" r="4" fill="#C77B3C"/>
+  <line x1="414" y1="40" x2="428" y2="40" stroke="#6B6B66" stroke-width="1.5"/>
+  <line x1="799.7" y1="584" x2="882" y2="584" stroke="#6B6B66"/>
+  <g font-family="system-ui, sans-serif" font-size="11" fill="#6B6B66">
+    <text x="18" y="22">KALMAN FILTER</text>
+    <text x="882" y="22" text-anchor="end">k = 64</text>
+    <text x="38" y="44">prior 95%</text>
+    <text x="170" y="44">posterior 95%</text>
+    <text x="302" y="44">observed</text>
+    <text x="434" y="44">true path</text>
+    <text x="18" y="588">ellipses: 95% regions for position</text>
+    <text x="882" y="598" text-anchor="end">1 unit</text>
+  </g>
+</svg>
