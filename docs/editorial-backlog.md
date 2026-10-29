@@ -1,7 +1,7 @@
 # Editorial backlog
 
-Deep interactives that are planned but not yet built, in recommended order.
+The agreed sequence following Kalman filtering (2026-10-25):
 
-Kalman filtering shipped on 2026-10-25. The committed sequence is complete; the next piece is not yet chosen.
-Candidates that extend this one are the particle filter (the nonlinear, non-Gaussian counterpart) and the
-smoother (the same model using later measurements as well).
+1. **Kalman smoothing.** Implemented locally for 2026-10-27. A fixed-interval RTS smoother compares filtering and smoothing across a measurement gap, with a movable evidence cutoff.
+2. **Extended Kalman filtering.** Implemented locally for 2026-10-27. A nonlinear pendulum tracker compares the EKF with a small-angle filter and exposes the sensor tangent at each measurement.
+3. **Particle filtering.** Represent uncertainty with weighted particles; make weighting, resampling, and particle depletion visible.

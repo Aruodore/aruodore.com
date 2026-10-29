@@ -13,6 +13,8 @@ const paths = [
   '/pieces/bootstrap',
   '/pieces/gaussian-process-regression',
   '/pieces/kalman-filtering',
+  '/pieces/kalman-smoothing',
+  '/pieces/extended-kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

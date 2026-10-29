@@ -78,6 +78,7 @@ useHead(() => ({
 // explicitly for the MDC renderer. Math is handled by remark-math +
 // rehype-katex in the markdown pipeline and needs no component registration.
 const mdcComponents = {
+  'extended-kalman-filtering': defineAsyncComponent(() => import('~/components/pieces/extended-kalman-filtering.vue')),
   'brownian-motion': defineAsyncComponent(() => import('~/components/pieces/brownian-motion.vue')),
   'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
   'first-passage': defineAsyncComponent(() => import('~/components/pieces/first-passage.vue')),
@@ -90,6 +91,7 @@ const mdcComponents = {
   'gaussian-process-regression': defineAsyncComponent(
     () => import('~/components/pieces/gaussian-process-regression.vue'),
   ),
+  'kalman-smoothing': defineAsyncComponent(() => import('~/components/pieces/kalman-smoothing.vue')),
   'kalman-filtering': defineAsyncComponent(() => import('~/components/pieces/kalman-filtering.vue')),
 }
 </script>

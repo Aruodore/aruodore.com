@@ -16,6 +16,8 @@ const routes = [
   '/pieces/bootstrap',
   '/pieces/gaussian-process-regression',
   '/pieces/kalman-filtering',
+  '/pieces/kalman-smoothing',
+  '/pieces/extended-kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -172,6 +174,8 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/bootstrap',
     '/pieces/gaussian-process-regression',
     '/pieces/kalman-filtering',
+    '/pieces/kalman-smoothing',
+    '/pieces/extended-kalman-filtering',
     '/about',
   ]) {
     await page.goto(route)
