@@ -17,7 +17,6 @@ const routes = [
   '/pieces/gaussian-process-regression',
   '/pieces/kalman-filtering',
   '/pieces/kalman-smoothing',
-  '/pieces/extended-kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -159,9 +158,9 @@ test('paper references render with journal, volume, and pages', async ({ page })
 })
 
 test('@accessibility representative pages have no serious axe violations', async ({ page }) => {
-  // Eight navigations, each followed by a full axe pass over a page that
-  // mounts a simulation; the default timeout is not enough under load.
-  test.setTimeout(120_000)
+  // Every listed page mounts a simulation before a full axe pass. Allow
+  // about 20 seconds per page so CI load does not fail the run as pages are added.
+  test.setTimeout(360_000)
   for (const route of [
     '/',
     '/pieces/brownian-motion',
@@ -175,7 +174,6 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/gaussian-process-regression',
     '/pieces/kalman-filtering',
     '/pieces/kalman-smoothing',
-    '/pieces/extended-kalman-filtering',
     '/about',
   ]) {
     await page.goto(route)

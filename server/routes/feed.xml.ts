@@ -1,12 +1,5 @@
 const entries = [
   {
-    title: 'Extended Kalman Filtering: A Tangent to a Nonlinear Sensor',
-    url: 'https://aruodore.com/pieces/extended-kalman-filtering',
-    date: '2026-10-27T00:00:00Z',
-    summary:
-      'A pendulum swings beyond the small-angle regime: local linearisation tracks its hidden angle, while a tangent to the sensor reveals where Gaussian updates lose information.',
-  },
-  {
     title: 'Kalman Smoothing: Revising the Past with Later Measurements',
     url: 'https://aruodore.com/pieces/kalman-smoothing',
     date: '2026-10-27T00:00:00Z',

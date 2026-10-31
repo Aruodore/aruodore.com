@@ -14,7 +14,6 @@ const paths = [
   '/pieces/gaussian-process-regression',
   '/pieces/kalman-filtering',
   '/pieces/kalman-smoothing',
-  '/pieces/extended-kalman-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
