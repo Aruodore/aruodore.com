@@ -20,3 +20,20 @@ test('@accessibility the not-found page is styled, accessible, and leads back in
   await expect(page.getByRole('heading', { level: 1, name: 'Pieces' })).toBeVisible()
   expect(errors).toEqual([])
 })
+
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false })
+
+  test('the not-found page is server-rendered', async ({ page }) => {
+    await page.goto('/404.html')
+    await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+    await expect(page.getByRole('link', { name: 'Browse all pieces' })).toHaveAttribute('href', '/pieces')
+  })
+})
+
+test('hydrating the not-found page keeps the address the visitor requested', async ({ page }) => {
+  await page.goto('/404.html')
+  await page.waitForLoadState('networkidle')
+  await expect(page.getByRole('heading', { level: 1, name: 'Page not found' })).toBeVisible()
+  expect(new URL(page.url()).pathname).toBe('/404.html')
+})

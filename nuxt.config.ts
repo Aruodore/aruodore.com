@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import { SITE_AUTHOR } from './utils/identity'
+import { NOT_FOUND_SOURCE_ROUTE, writeServerRenderedNotFound } from './utils/not-found-page'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
@@ -72,7 +73,10 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/sitemap.xml', '/feed.xml'],
+      routes: ['/', '/sitemap.xml', '/feed.xml', NOT_FOUND_SOURCE_ROUTE],
+    },
+    hooks: {
+      'prerender:generate': writeServerRenderedNotFound,
     },
   },
 
