@@ -2,6 +2,7 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 const pieces = [
   { slug: 'bayesian-optimisation', title: 'Bayesian Optimisation', control: 'Evaluations available', value: '8' },
+  { slug: 'particle-filtering', title: 'Particle Filtering', control: 'Inspect update', value: '8' },
 ]
 for (const piece of pieces) {
   test(`${piece.title} supports reduced motion, keyboard controls, reset, and mobile accessibility`, async ({
@@ -88,6 +89,7 @@ for (const piece of pieces) {
 
 for (const motion of [
   { slug: 'bayesian-optimisation', control: 'Evaluations available', key: 'mean', attribute: 'd' },
+  { slug: 'particle-filtering', control: 'Inspect update', key: 'rug-particle-0', attribute: 'cx' },
 ]) {
   test(`${motion.slug} moves continuously and holds its frame when paused`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
@@ -130,6 +132,7 @@ for (const motion of [
 
 for (const piece of [
   { slug: 'bayesian-optimisation', control: 'Evaluations available', step: 'Evaluate suggested input' },
+  { slug: 'particle-filtering', control: 'Inspect update', step: 'Run next update' },
 ]) {
   test(`${piece.slug} completes one requested update and pauses`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })

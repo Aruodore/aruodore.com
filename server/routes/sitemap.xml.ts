@@ -16,6 +16,7 @@ const paths = [
   '/pieces/kalman-smoothing',
   '/pieces/extended-kalman-filtering',
   '/pieces/bayesian-optimisation',
+  '/pieces/particle-filtering',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',

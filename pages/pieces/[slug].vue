@@ -79,6 +79,7 @@ useHead(() => ({
 // rehype-katex in the markdown pipeline and needs no component registration.
 const mdcComponents = {
   'bayesian-optimisation': defineAsyncComponent(() => import('~/components/pieces/bayesian-optimisation.vue')),
+  'particle-filtering': defineAsyncComponent(() => import('~/components/pieces/particle-filtering.vue')),
   'extended-kalman-filtering': defineAsyncComponent(() => import('~/components/pieces/extended-kalman-filtering.vue')),
   'brownian-motion': defineAsyncComponent(() => import('~/components/pieces/brownian-motion.vue')),
   'ornstein-uhlenbeck': defineAsyncComponent(() => import('~/components/pieces/ornstein-uhlenbeck.vue')),
