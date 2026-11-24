@@ -3,10 +3,13 @@ import { createView as bo } from '../../pieces/bayesian-optimisation/figure'
 import { DEFAULT_SETTINGS as boDefaults } from '../../pieces/bayesian-optimisation/model'
 import { createView as pf } from '../../pieces/particle-filtering/figure'
 import { DEFAULT_SETTINGS as pfDefaults } from '../../pieces/particle-filtering/model'
+import { createView as vi } from '../../pieces/variational-inference/figure'
+import { DEFAULT_SETTINGS as viDefaults } from '../../pieces/variational-inference/model'
 describe('new inference figures', () => {
   it.each([
     ['optimisation', () => bo(boDefaults)],
     ['filtering', () => pf(pfDefaults)],
+    ['variational', () => vi(viDefaults)],
   ] as const)('%s renders accessible SVG at both sizes', (_, create) => {
     const view = create()
     for (const mobile of [false, true]) {
@@ -24,6 +27,7 @@ describe('continuous inference motion', () => {
   it.each([
     ['optimisation', () => bo({ ...boDefaults, iterations: 6 }), 'mean'],
     ['filtering', () => pf({ ...pfDefaults, inspect: 13 }), 'rug-particle-0'],
+    ['variational', () => vi({ ...viDefaults, iteration: 1 }), 'q-1'],
   ] as const)('%s updates persistent nodes through intermediate states', (_, create, key) => {
     const view = create()
     for (const mobile of [false, true]) {
@@ -47,6 +51,15 @@ describe('continuous inference motion', () => {
 })
 
 describe('visible mathematical explanations', () => {
+  it('keeps the VI error floor visible and stops only when fitting error is small', () => {
+    const initial = vi(viDefaults)
+    const final = vi({ ...viDefaults, iteration: 40 })
+    expect(initial.complete).toBe(false)
+    expect(final.complete).toBe(true)
+    expect(initial.render(false)).toContain('Shaded floor: 0.641 nats')
+    expect(final.stats.find((s) => s.label === 'Irreducible family error (nats)')!.value).toBe('0.6410')
+    expect(Number(final.stats.find((s) => s.label === 'Unfinished optimisation (nats)')!.value)).toBeLessThan(0.01)
+  })
   it('makes copying visible in the disclosed filter episode', () => {
     const view = pf(pfDefaults)
     expect(view.insight).toContain('17 distinct parents')

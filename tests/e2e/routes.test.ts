@@ -20,6 +20,7 @@ const routes = [
   '/pieces/extended-kalman-filtering',
   '/pieces/bayesian-optimisation',
   '/pieces/particle-filtering',
+  '/pieces/variational-inference',
   '/sketches',
   '/sketches/ornstein-uhlenbeck',
   '/notes',
@@ -180,6 +181,7 @@ test('@accessibility representative pages have no serious axe violations', async
     '/pieces/extended-kalman-filtering',
     '/pieces/bayesian-optimisation',
     '/pieces/particle-filtering',
+    '/pieces/variational-inference',
     '/about',
   ]) {
     await page.goto(route)

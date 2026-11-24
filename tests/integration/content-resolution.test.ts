@@ -17,6 +17,7 @@ describe('content component resolution', () => {
     ['content/pieces/extended-kalman-filtering.md', '::extended-kalman-filtering'],
     ['content/pieces/bayesian-optimisation.md', '::bayesian-optimisation'],
     ['content/pieces/particle-filtering.md', '::particle-filtering'],
+    ['content/pieces/variational-inference.md', '::variational-inference'],
   ])('%s uses a registered kebab-case MDC component', (contentPath, embed) => {
     const content = readFileSync(contentPath, 'utf8')
     const page = readFileSync('pages/pieces/[slug].vue', 'utf8')

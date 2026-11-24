@@ -1,5 +1,12 @@
 const entries = [
   {
+    title: 'Variational Inference: Fitting a Posterior and Losing Its Shape',
+    url: 'https://aruodore.com/pieces/variational-inference',
+    date: '2026-11-24T00:00:00Z',
+    summary:
+      'An independent Gaussian approximation is fitted to a correlated posterior, separating optimisation progress from uncertainty that the chosen family cannot represent.',
+  },
+  {
     title: 'Particle Filtering: Weights, Resampling, and Missing Modes',
     url: 'https://aruodore.com/pieces/particle-filtering',
     date: '2026-11-17T00:00:00Z',
@@ -121,5 +128,5 @@ export default defineEventHandler((event) => {
         `<entry><title>${escapeXml(entry.title)}</title><id>${entry.url}</id><link href="${entry.url}"/><updated>${entry.date}</updated><summary>${escapeXml(entry.summary)}</summary></entry>`,
     )
     .join('')
-  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-11-17T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
+  return `<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><title>Aruodore</title><id>https://aruodore.com/</id><link href="https://aruodore.com/feed.xml" rel="self"/><link href="https://aruodore.com/"/><updated>2026-11-24T00:00:00Z</updated><author><name>Lucas Aruodore Adomi</name></author>${body}</feed>`
 })
